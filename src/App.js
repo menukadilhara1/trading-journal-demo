@@ -837,215 +837,203 @@ export default function App() {
       default_risk_pct: 1,
       currency: "USD",
       trades: [
+        // Feb 1 - Week 1
         {
-          id: 1001, backendId: 1001,
-          account_id: 101,
-          instrument: "NAS100", ticker: "NAS100",
-          direction: "long", side: "long",
-          entry: 15400.5, entryPrice: 15400.5,
-          exit: 15620.2, exitPrice: 15620.2,
-          stop_loss: 15350.0, stopPrice: 15350.0,
-          take_profit: 15650.0,
-          pnl: 2200.00, dollarAmount: 2200.00,
-          lots: 10, quantity: 10,
-          result: "win",
+          id: 1001, backendId: 1001, account_id: 101, instrument: "NAS100", direction: "long",
+          pnl: 1200.00, dollarAmount: 1200.00, result: "win",
+          trade_date: "2026-02-01", date: "2026-02-01",
+          startDateTime: "2026-02-01T09:30", endDateTime: "2026-02-01T11:00",
+          feeling: "happy", session: "New York", tags: ["trend", "breakout"]
+        },
+        {
+          id: 1002, backendId: 1002, account_id: 101, instrument: "EURUSD", direction: "short",
+          pnl: -400.00, dollarAmount: -400.00, result: "loss",
+          trade_date: "2026-02-02", date: "2026-02-02",
+          startDateTime: "2026-02-02T08:00", endDateTime: "2026-02-02T09:15",
+          feeling: "frustrated", session: "London", tags: ["reversal", "failed"]
+        },
+        {
+          id: 1003, backendId: 1003, account_id: 101, instrument: "XAUUSD", direction: "long",
+          pnl: 2500.00, dollarAmount: 2500.00, result: "win",
+          trade_date: "2026-02-03", date: "2026-02-03",
+          startDateTime: "2026-02-03T10:00", endDateTime: "2026-02-03T14:00",
+          feeling: "confident", session: "New York", tags: ["news", "gold"]
+        },
+        {
+          id: 1004, backendId: 1004, account_id: 101, instrument: "GBPUSD", direction: "short",
+          pnl: 0, dollarAmount: 0, result: "breakeven",
+          trade_date: "2026-02-04", date: "2026-02-04",
+          startDateTime: "2026-02-04T08:30", endDateTime: "2026-02-04T09:00",
+          feeling: "neutral", session: "London", tags: ["chop", "managed"]
+        },
+        {
+          id: 1005, backendId: 1005, account_id: 101, instrument: "BTCUSDT", direction: "long",
+          pnl: 3200.00, dollarAmount: 3200.00, result: "win",
+          trade_date: "2026-02-05", date: "2026-02-05",
+          startDateTime: "2026-02-05T15:00", endDateTime: "2026-02-05T18:00",
+          feeling: "excited", session: "New York", tags: ["crypto", "pump"]
+        },
+        // Feb 6-7 Weekend (Crypto/OTC)
+        {
+          id: 1006, backendId: 1006, account_id: 101, instrument: "ETHUSDT", direction: "short",
+          pnl: -600.00, dollarAmount: -600.00, result: "loss",
+          trade_date: "2026-02-07", date: "2026-02-07",
+          startDateTime: "2026-02-07T12:00", endDateTime: "2026-02-07T14:30",
+          feeling: "annoyed", session: "New York", tags: ["weekend", "chop"]
+        },
+
+        // Week 2
+        {
+          id: 1007, backendId: 1007, account_id: 101, instrument: "US30", direction: "long",
+          pnl: 1800.00, dollarAmount: 1800.00, result: "win",
+          trade_date: "2026-02-08", date: "2026-02-08",
+          startDateTime: "2026-02-08T09:30", endDateTime: "2026-02-08T10:15",
+          feeling: "happy", session: "New York", tags: ["open", "momentum"]
+        },
+        {
+          id: 1008, backendId: 1008, account_id: 101, instrument: "NAS100", direction: "short",
+          pnl: 50.00, dollarAmount: 50.00, result: "breakeven",
+          trade_date: "2026-02-09", date: "2026-02-09",
+          startDateTime: "2026-02-09T11:00", endDateTime: "2026-02-09T11:30",
+          feeling: "neutral", session: "New York", tags: ["reversal", "early-exit"]
+        },
+        {
+          id: 1009, backendId: 1009, account_id: 101, instrument: "XAUUSD", direction: "long",
+          pnl: -800.00, dollarAmount: -800.00, result: "loss",
           trade_date: "2026-02-10", date: "2026-02-10",
-          startDateTime: "2026-02-10T09:30",
-          endDateTime: "2026-02-10T11:45",
-          notes: "Clean breakout on the H1 timeframe. Strong momentum.",
-          feeling: "happy",
-          session: "New York",
-          tags: ["breakout", "trend"],
-          screenshots: [{ url: "https://via.placeholder.com/800x400?text=NAS100+Breakout" }]
+          startDateTime: "2026-02-10T08:00", endDateTime: "2026-02-10T08:45",
+          feeling: "frustrated", session: "London", tags: ["trap", "news"]
         },
         {
-          id: 1002, backendId: 1002,
-          account_id: 101,
-          instrument: "XAUUSD", ticker: "XAUUSD",
-          direction: "short", side: "short",
-          entry: 2042.1, entryPrice: 2042.1,
-          exit: 2038.5, exitPrice: 2038.5,
-          stop_loss: 2045.0, stopPrice: 2045.0,
-          take_profit: 2035.0,
-          pnl: 3600.00, dollarAmount: 3600.00,
-          lots: 10, quantity: 10,
-          result: "win",
+          id: 1010, backendId: 1010, account_id: 101, instrument: "EURUSD", direction: "short",
+          pnl: 950.00, dollarAmount: 950.00, result: "win",
           trade_date: "2026-02-11", date: "2026-02-11",
-          startDateTime: "2026-02-11T08:00",
-          endDateTime: "2026-02-11T14:30",
-          notes: "Key resistance rejection at weekly level.",
-          feeling: "confident",
-          session: "London",
-          tags: ["rejection", "weekly-level"],
-          screenshots: [{ url: "https://via.placeholder.com/800x400?text=Gold+Short" }]
+          startDateTime: "2026-02-11T07:30", endDateTime: "2026-02-11T10:00",
+          feeling: "focused", session: "London", tags: ["trend", "continuation"]
         },
         {
-          id: 1003, backendId: 1003,
-          account_id: 101,
-          instrument: "BTCUSDT", ticker: "BTCUSDT",
-          direction: "long", side: "long",
-          entry: 43200, entryPrice: 43200,
-          exit: 42800, exitPrice: 42800,
-          stop_loss: 42800, stopPrice: 42800,
-          take_profit: 44000,
-          pnl: -400.00, dollarAmount: -400.00,
-          lots: 1, quantity: 1,
-          result: "loss",
-          trade_date: "2026-02-11", date: "2026-02-11",
-          startDateTime: "2026-02-11T02:00",
-          endDateTime: "2026-02-11T05:15",
-          notes: "Stop hunted before the pump. Entered too early.",
-          feeling: "frustrated",
-          session: "Asian",
-          tags: ["crypto", "failed-breakout"],
-          screenshots: [{ url: "https://via.placeholder.com/800x400?text=BTC+Stop+Hunt" }]
-        },
-        {
-          id: 1004, backendId: 1004,
-          account_id: 101,
-          instrument: "NAS100", ticker: "NAS100",
-          direction: "long", side: "long",
-          entry: 15600, entryPrice: 15600,
-          exit: 15600.5, exitPrice: 15600.5,
-          stop_loss: 15580, stopPrice: 15580,
-          take_profit: 15700,
-          pnl: 50.00, dollarAmount: 50.00,
-          lots: 10, quantity: 10,
-          result: "breakeven",
+          id: 1011, backendId: 1011, account_id: 101, instrument: "TSLA", direction: "long",
+          pnl: 4200.00, dollarAmount: 4200.00, result: "win", // Big win
           trade_date: "2026-02-12", date: "2026-02-12",
-          startDateTime: "2026-02-12T10:00",
-          endDateTime: "2026-02-12T10:45",
-          notes: "Tightened SL too early to protect profits.",
-          feeling: "neutral",
-          session: "New York",
-          tags: ["managed", "be"],
-          screenshots: [{ url: "https://via.placeholder.com/800x400?text=NAS+BE" }]
+          startDateTime: "2026-02-12T10:00", endDateTime: "2026-02-12T15:30",
+          feeling: "excited", session: "New York", tags: ["stocks", "swing"]
         },
         {
-          id: 1005, backendId: 1005,
-          account_id: 101,
-          instrument: "EURUSD", ticker: "EURUSD",
-          direction: "short", side: "short",
-          entry: 1.0850, entryPrice: 1.0850,
-          exit: 1.0810, exitPrice: 1.0810,
-          stop_loss: 1.0870, stopPrice: 1.0870,
-          take_profit: 1.0800,
-          pnl: 400.00, dollarAmount: 400.00,
-          lots: 5, quantity: 5,
-          result: "win",
-          trade_date: "2026-02-12", date: "2026-02-12",
-          startDateTime: "2026-02-12T07:30",
-          endDateTime: "2026-02-12T09:15",
-          notes: "Classic trend continuation on 15m.",
-          feeling: "focused",
-          session: "London",
-          tags: ["forex", "trend"],
-          screenshots: [{ url: "https://via.placeholder.com/800x400?text=EURUSD+Short" }]
-        },
-        {
-          id: 1006, backendId: 1006,
-          account_id: 101,
-          instrument: "US30", ticker: "US30",
-          direction: "short", side: "short",
-          entry: 38500, entryPrice: 38500,
-          exit: 38200, exitPrice: 38200,
-          stop_loss: 38600, stopPrice: 38600,
-          take_profit: 38200,
-          pnl: 3000.00, dollarAmount: 3000.00,
-          lots: 10, quantity: 10,
-          result: "win",
+          id: 1012, backendId: 1012, account_id: 101, instrument: "NVDA", direction: "short",
+          pnl: -1200.00, dollarAmount: -1200.00, result: "loss",
           trade_date: "2026-02-13", date: "2026-02-13",
-          startDateTime: "2026-02-13T08:30",
-          endDateTime: "2026-02-13T09:00",
-          notes: "Huge flush after CPI data. Caught the wick.",
-          feeling: "excited",
-          session: "New York",
-          tags: ["news", "flush"],
-          screenshots: [{ url: "https://via.placeholder.com/800x400?text=US30+CPI" }]
+          startDateTime: "2026-02-13T09:45", endDateTime: "2026-02-13T10:15",
+          feeling: "annoyed", session: "New York", tags: ["counter-trend", "failed"]
         },
+        // Feb 14-15 Weekend
         {
-          id: 1007, backendId: 1007,
-          account_id: 101,
-          instrument: "NVDA", ticker: "NVDA",
-          direction: "long", side: "long",
-          entry: 720.50, entryPrice: 720.50,
-          exit: 735.00, exitPrice: 735.00,
-          stop_loss: 710.00, stopPrice: 710.00,
-          take_profit: 740.00,
-          pnl: 1450.00, dollarAmount: 1450.00,
-          lots: 100, quantity: 100,
-          result: "win",
-          trade_date: "2026-02-13", date: "2026-02-13",
-          startDateTime: "2026-02-13T09:45",
-          endDateTime: "2026-02-13T13:30",
-          notes: "Earnings run-up play. Volume confirmed.",
-          feeling: "happy",
-          session: "New York",
-          tags: ["stocks", "earnings"],
-          screenshots: [{ url: "https://via.placeholder.com/800x400?text=NVDA+Long" }]
-        },
-        {
-          id: 1008, backendId: 1008,
-          account_id: 101,
-          instrument: "TSLA", ticker: "TSLA",
-          direction: "short", side: "short",
-          entry: 190.00, entryPrice: 190.00,
-          exit: 192.50, exitPrice: 192.50,
-          stop_loss: 195.00, stopPrice: 195.00,
-          take_profit: 180.00,
-          pnl: -250.00, dollarAmount: -250.00,
-          lots: 100, quantity: 100,
-          result: "loss",
+          id: 1013, backendId: 1013, account_id: 101, instrument: "SOLUSDT", direction: "long",
+          pnl: 300.00, dollarAmount: 300.00, result: "win",
           trade_date: "2026-02-14", date: "2026-02-14",
-          startDateTime: "2026-02-14T10:00",
-          endDateTime: "2026-02-14T10:20",
-          notes: "Counter-trend attempt failed.",
-          feeling: "annoyed",
-          session: "New York",
-          tags: ["counter-trend", "stocks"],
-          screenshots: [{ url: "https://via.placeholder.com/800x400?text=TSLA+Loss" }]
+          startDateTime: "2026-02-14T14:00", endDateTime: "2026-02-14T16:00",
+          feeling: "relaxed", session: "New York", tags: ["weekend", "scalp"]
         },
+
+        // Week 3
         {
-          id: 1009, backendId: 1009,
-          account_id: 101,
-          instrument: "ETHUSDT", ticker: "ETHUSDT",
-          direction: "long", side: "long",
-          entry: 2500, entryPrice: 2500,
-          exit: 2650, exitPrice: 2650,
-          stop_loss: 2450, stopPrice: 2450,
-          take_profit: 2700,
-          pnl: 1500.00, dollarAmount: 1500.00,
-          lots: 10, quantity: 10,
-          result: "win",
-          trade_date: "2026-02-14", date: "2026-02-14",
-          startDateTime: "2026-02-14T20:00",
-          endDateTime: "2026-02-14T23:30",
-          notes: "Weekend pump setup. 4H bullish engulfing.",
-          feeling: "relaxed",
-          session: "Asian",
-          tags: ["crypto", "weekend"],
-          screenshots: [{ url: "https://via.placeholder.com/800x400?text=ETH+Pump" }]
-        },
-        {
-          id: 1010, backendId: 1010,
-          account_id: 101,
-          instrument: "SPX500", ticker: "SPX500",
-          direction: "short", side: "short",
-          entry: 5020, entryPrice: 5020,
-          exit: 4980, exitPrice: 4980,
-          stop_loss: 5035, stopPrice: 5035,
-          take_profit: 4980,
-          pnl: 4000.00, dollarAmount: 4000.00,
-          lots: 100, quantity: 100,
-          result: "win",
+          id: 1014, backendId: 1014, account_id: 101, instrument: "US30", direction: "short",
+          pnl: 2100.00, dollarAmount: 2100.00, result: "win",
           trade_date: "2026-02-15", date: "2026-02-15",
-          startDateTime: "2026-02-15T08:00",
-          endDateTime: "2026-02-15T11:00",
-          notes: "Psychological level rejection at 5020.",
-          feeling: "confident",
-          session: "London",
-          tags: ["indices", "rejection"],
-          screenshots: [{ url: "https://via.placeholder.com/800x400?text=SPX+Short" }]
+          startDateTime: "2026-02-15T20:00", endDateTime: "2026-02-15T22:00",
+          feeling: "confident", session: "Asian", tags: ["gap-fill"]
+        },
+        {
+          id: 1015, backendId: 1015, account_id: 101, instrument: "NAS100", direction: "long",
+          pnl: -550.00, dollarAmount: -550.00, result: "loss",
+          trade_date: "2026-02-16", date: "2026-02-16",
+          startDateTime: "2026-02-16T09:30", endDateTime: "2026-02-16T10:00",
+          feeling: "frustrated", session: "New York", tags: ["fakeout"]
+        },
+        {
+          id: 1016, backendId: 1016, account_id: 101, instrument: "GBPJPY", direction: "long",
+          pnl: 1400.00, dollarAmount: 1400.00, result: "win",
+          trade_date: "2026-02-17", date: "2026-02-17",
+          startDateTime: "2026-02-17T08:00", endDateTime: "2026-02-17T11:00",
+          feeling: "happy", session: "London", tags: ["volatility", "breakout"]
+        },
+        {
+          id: 1017, backendId: 1017, account_id: 101, instrument: "XAUUSD", direction: "short",
+          pnl: 0, dollarAmount: 0, result: "breakeven",
+          trade_date: "2026-02-18", date: "2026-02-18",
+          startDateTime: "2026-02-18T13:00", endDateTime: "2026-02-18T14:30",
+          feeling: "neutral", session: "New York", tags: ["choppy"]
+        },
+        {
+          id: 1018, backendId: 1018, account_id: 101, instrument: "BTCUSDT", direction: "short",
+          pnl: -1500.00, dollarAmount: -1500.00, result: "loss",
+          trade_date: "2026-02-19", date: "2026-02-19",
+          startDateTime: "2026-02-19T10:00", endDateTime: "2026-02-19T10:45",
+          feeling: "annoyed", session: "New York", tags: ["liquidation"]
+        },
+        {
+          id: 1019, backendId: 1019, account_id: 101, instrument: "SPX500", direction: "long",
+          pnl: 2800.00, dollarAmount: 2800.00, result: "win",
+          trade_date: "2026-02-20", date: "2026-02-20",
+          startDateTime: "2026-02-20T09:45", endDateTime: "2026-02-20T12:30",
+          feeling: "excited", session: "New York", tags: ["rally", "at-open"]
+        },
+
+        // Week 4
+        {
+          id: 1020, backendId: 1020, account_id: 101, instrument: "ETHUSDT", direction: "long",
+          pnl: 650.00, dollarAmount: 650.00, result: "win",
+          trade_date: "2026-02-21", date: "2026-02-21",
+          startDateTime: "2026-02-21T18:00", endDateTime: "2026-02-21T21:00",
+          feeling: "relaxed", session: "Asian", tags: ["weekend", "slow"]
+        },
+        {
+          id: 1021, backendId: 1021, account_id: 101, instrument: "US30", direction: "short",
+          pnl: -350.00, dollarAmount: -350.00, result: "loss",
+          trade_date: "2026-02-22", date: "2026-02-22",
+          startDateTime: "2026-02-22T21:00", endDateTime: "2026-02-22T22:30",
+          feeling: "neutral", session: "Asian", tags: ["open", "reversal"]
+        },
+        {
+          id: 1022, backendId: 1022, account_id: 101, instrument: "NAS100", direction: "long",
+          pnl: 5000.00, dollarAmount: 5000.00, result: "win", // Huge win
+          trade_date: "2026-02-23", date: "2026-02-23",
+          startDateTime: "2026-02-23T09:30", endDateTime: "2026-02-23T11:45",
+          feeling: "happy", session: "New York", tags: ["runner", "A+"]
+        },
+        {
+          id: 1023, backendId: 1023, account_id: 101, instrument: "XAUUSD", direction: "short",
+          pnl: 1100.00, dollarAmount: 1100.00, result: "win",
+          trade_date: "2026-02-24", date: "2026-02-24",
+          startDateTime: "2026-02-24T08:00", endDateTime: "2026-02-24T09:30",
+          feeling: "focused", session: "London", tags: ["breakout"]
+        },
+        {
+          id: 1024, backendId: 1024, account_id: 101, instrument: "EURUSD", direction: "long",
+          pnl: -650.00, dollarAmount: -650.00, result: "loss",
+          trade_date: "2026-02-25", date: "2026-02-25",
+          startDateTime: "2026-02-25T07:45", endDateTime: "2026-02-25T08:30",
+          feeling: "frustrated", session: "London", tags: ["trap"]
+        },
+        {
+          id: 1025, backendId: 1025, account_id: 101, instrument: "GBPUSD", direction: "short",
+          pnl: 850.00, dollarAmount: 850.00, result: "win",
+          trade_date: "2026-02-26", date: "2026-02-26",
+          startDateTime: "2026-02-26T08:15", endDateTime: "2026-02-26T10:00",
+          feeling: "confident", session: "London", tags: ["continuation"]
+        },
+        {
+          id: 1026, backendId: 1026, account_id: 101, instrument: "US30", direction: "long",
+          pnl: 0, dollarAmount: 0, result: "breakeven",
+          trade_date: "2026-02-27", date: "2026-02-27",
+          startDateTime: "2026-02-27T09:30", endDateTime: "2026-02-27T10:00",
+          feeling: "neutral", session: "New York", tags: ["managed", "nfp"]
+        },
+        {
+          id: 1027, backendId: 1027, account_id: 101, instrument: "NAS100", direction: "short",
+          pnl: -2000.00, dollarAmount: -2000.00, result: "loss",
+          trade_date: "2026-02-27", date: "2026-02-27",
+          startDateTime: "2026-02-27T14:00", endDateTime: "2026-02-27T15:00",
+          feeling: "annoyed", session: "New York", tags: ["eod", "flush"]
         }
       ]
     }
@@ -2202,7 +2190,7 @@ export default function App() {
                   )}
 
                   {activePage === "calendar" && <CalendarUI trades={activeTrades} />}
-                  {activePage === "journal" && <JournalUI />}
+                  {activePage === "journal" && <JournalUI trades={filteredTrades} />}
                   {activePage === "setting" && <SettingsPage />}
                   {activePage === "billing" && (
                     <div className="max-w-6xl mx-auto py-10 px-4">

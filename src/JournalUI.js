@@ -34,7 +34,7 @@ const PROCESS_CHECKS = [
   { emoji: "🧹", text: "I avoided overtrading", key: "avoidedOvertrading" },
 ];
 
-export default function JournalUI() {
+export default function JournalUI({ trades: propTrades }) {
   // State
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedMood, setSelectedMood] = useState(null);
@@ -93,13 +93,75 @@ export default function JournalUI() {
     return () => { alive = false; };
   }, []);
 
-  // Load all journal entries for history
+  // Mock data for demo
+  const MOCK_JOURNALS = useMemo(() => [
+    {
+      id: 1, date: "2026-02-01", rating: "happy",
+      content: JSON.stringify({ outcome: "Strong start to the month. Followed the plan perfectly.", takeaway: "Keep waiting for A+ setups." }),
+      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true, waitedForSetups: true, avoidedOvertrading: true }
+    },
+    {
+      id: 2, date: "2026-02-03", rating: "confident",
+      content: JSON.stringify({ outcome: "Gold moved exactly as analyzed. Partial took at 1:2R.", takeaway: "Trust the analysis." }),
+      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true }
+    },
+    {
+      id: 3, date: "2026-02-05", rating: "excited",
+      content: JSON.stringify({ outcome: "Crypto pump was insane. Caught the bottom wick.", takeaway: "Don't fade momentum." }),
+      process_checks: { followedPlan: true, respectedRisk: true, waitedForSetups: false }
+    },
+    {
+      id: 4, date: "2026-02-07", rating: "annoyed",
+      content: JSON.stringify({ outcome: "Choppy weekend price action. Shouldn't have traded.", takeaway: "No trading on weekends unless volatility is high." }),
+      process_checks: { followedPlan: false, avoidedOvertrading: false }
+    },
+    {
+      id: 5, date: "2026-02-10", rating: "frustrated",
+      content: JSON.stringify({ outcome: "Got stopped out by news wick. Position sizing was too big.", takeaway: "Reduce risk during red folder news." }),
+      process_checks: { followedPlan: true, respectedRisk: false }
+    },
+    {
+      id: 6, date: "2026-02-12", rating: "excited",
+      content: JSON.stringify({ outcome: "Tesla swing trade paid off. Held through the pullback.", takeaway: "Patience pays." }),
+      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true }
+    },
+    {
+      id: 7, date: "2026-02-14", rating: "relaxed",
+      content: JSON.stringify({ outcome: "Small scalp on SOL. Quick in and out.", takeaway: "Don't overstay welcome on scalps." }),
+      process_checks: { followedPlan: true, respectedRisk: true }
+    },
+    {
+      id: 8, date: "2026-02-16", rating: "frustrated",
+      content: JSON.stringify({ outcome: "Fakeout on NAS100. Entered too early.", takeaway: "Wait for candle close." }),
+      process_checks: { waitedForSetups: false }
+    },
+    {
+      id: 9, date: "2026-02-20", rating: "excited",
+      content: JSON.stringify({ outcome: "SPX rally at open. Classic gap fill setup.", takeaway: "Gap fills are reliable." }),
+      process_checks: { followedPlan: true, respectedRisk: true, avoidedOvertrading: true }
+    },
+    {
+      id: 10, date: "2026-02-23", rating: "happy",
+      content: JSON.stringify({ outcome: "Best trade of the month. NAS100 runner.", takeaway: "Let winners run." }),
+      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true, waitedForSetups: true, avoidedOvertrading: true }
+    }
+  ], []);
+
+
+
+  // Load trades from props or backend
   useEffect(() => {
+    // If trades passed via props (Demo/Promo mode), use them
+    if (propTrades && propTrades.length > 0) {
+      setTrades(propTrades);
+      return;
+    }
+
     let alive = true;
+
     (async () => {
       try {
-        setLoadingJournals(true);
-        const res = await fetch(`${API_BASE}/api/journal`, {
+        const res = await fetch(`${API_BASE}/api/trades`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -108,71 +170,54 @@ export default function JournalUI() {
           },
         });
 
-        if (res.ok) {
-          const data = await res.json();
-          if (!alive) return;
-          setAllJournals(Array.isArray(data) ? data : []);
-        }
+        if (!res.ok) throw new Error(`Failed to load trades`);
+
+        const data = await res.json();
+        if (!alive) return;
+
+        const list = Array.isArray(data) ? data : (data?.data ?? []);
+        setTrades(list);
       } catch (e) {
-        console.error('Failed to load journal history:', e);
-      } finally {
-        if (alive) setLoadingJournals(false);
+        console.error('Failed to load trades:', e);
       }
     })();
+
     return () => { alive = false; };
-  }, []);
+  }, [propTrades]);
+
+  // Load all journal entries for history
+  useEffect(() => {
+    setAllJournals(MOCK_JOURNALS);
+    setLoadingJournals(false);
+  }, [MOCK_JOURNALS]);
 
   // Load journal entry from backend
   useEffect(() => {
-    let alive = true;
-    (async () => {
+    setLoadingEntry(true);
+    const entry = MOCK_JOURNALS.find(j => j.date === dateKey);
+
+    if (entry) {
+      setSelectedMood(entry.rating || null);
+      setProcessChecks(entry.process_checks || {});
+      setPhotos(entry.photos || []);
+
       try {
-        setLoadingEntry(true);
-        const res = await fetch(`${API_BASE}/api/journal?date=${dateKey}`, {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Accept": "application/json",
-            "X-Requested-With": "XMLHttpRequest",
-          },
-        });
-
-        if (res.ok) {
-          const data = await res.json();
-          if (!alive) return;
-
-          if (data) {
-            setSelectedMood(data.rating || null);
-            setProcessChecks(data.process_checks || {});
-            setPhotos(data.photos || []);
-
-            // Handle content (JSON or string)
-            try {
-              const parsed = JSON.parse(data.content);
-              setOutcome(parsed.outcome || "");
-              setTakeaway(parsed.takeaway || "");
-            } catch (e) {
-              // Fallback for plain text
-              setOutcome(data.content || "");
-              setTakeaway("");
-            }
-          } else {
-            // No entry found, reset
-            setSelectedMood(null);
-            setOutcome("");
-            setProcessChecks({});
-            setTakeaway("");
-            setPhotos([]);
-          }
-        }
+        const parsed = JSON.parse(entry.content);
+        setOutcome(parsed.outcome || "");
+        setTakeaway(parsed.takeaway || "");
       } catch (e) {
-        console.error("Failed to load journal:", e);
-      } finally {
-        if (alive) setLoadingEntry(false);
+        setOutcome(entry.content || "");
+        setTakeaway("");
       }
-    })();
-    return () => { alive = false; };
-  }, [dateKey]);
+    } else {
+      setSelectedMood(null);
+      setOutcome("");
+      setProcessChecks({});
+      setTakeaway("");
+      setPhotos([]);
+    }
+    setLoadingEntry(false);
+  }, [dateKey, MOCK_JOURNALS]);
 
   // Handle photo upload
   const handlePhotoUpload = async (e) => {
@@ -210,71 +255,13 @@ export default function JournalUI() {
   };
 
   // Save journal entry
-  // Save journal entry
   const handleSave = async () => {
-    const entryContent = JSON.stringify({ outcome, takeaway });
-
-    try {
-      setSaving(true);
-
-      // ✅ must hit csrf-cookie first (sets XSRF-TOKEN cookie)
-      await ensureCsrf();
-
-      // ✅ IMPORTANT: Laravel expects decoded token in header
-      const raw = getCookie("XSRF-TOKEN") || "";
-      const xsrf = raw ? decodeURIComponent(raw) : "";
-
-      const res = await fetch(`${API_BASE}/api/journal`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          "X-Requested-With": "XMLHttpRequest",
-          "X-XSRF-TOKEN": xsrf,
-        },
-        body: JSON.stringify({
-          date: dateKey,
-          content: entryContent,
-          rating: selectedMood,
-          process_checks: processChecks,
-          photos: photos,
-        }),
-      });
-
-      if (!res.ok) {
-        const txt = await res.text();
-        throw new Error(`Backend reject (${res.status}): ${txt}`);
-      }
-
-      await res.json();
-
-      setSaveMessage("✅ Saved!");
-      setTimeout(() => setSaveMessage(""), 2000);
-
-      // Refresh journal history
-      setLoadingJournals(true);
-      const historyRes = await fetch(`${API_BASE}/api/journal`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Accept": "application/json",
-          "X-Requested-With": "XMLHttpRequest",
-        },
-      });
-
-      if (historyRes.ok) {
-        const historyData = await historyRes.json();
-        setAllJournals(Array.isArray(historyData) ? historyData : []);
-      }
-      setLoadingJournals(false);
-    } catch (e) {
-      console.error("Failed to save journal:", e);
-      setSaveMessage(`❌ ${e.message}`);
-      setTimeout(() => setSaveMessage(""), 5000);
-    } finally {
+    setSaving(true);
+    setTimeout(() => {
+      setSaveMessage("🔒 Demo Mode: Saving disabled.");
       setSaving(false);
-    }
+      setTimeout(() => setSaveMessage(""), 2000);
+    }, 500);
   };
 
   // Get trades for current date
