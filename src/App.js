@@ -1316,38 +1316,8 @@ export default function App() {
     });
   }, []);
 
-  // ✅ 2) Load accounts from backend when logged in
-  useEffect(() => {
-    if (!isLoggedIn || !authChecked) return;
-
-    setAccountsLoading(true);
-
-    apiLoadAccounts()
-      .then((backendAccounts) => {
-        setState((prev) => {
-          const mappedAccounts = backendAccounts.map((ba) => ({
-            id: String(ba.id),
-            backendId: ba.id,
-            name: ba.name,
-            startingBalance: Number(ba.starting_balance) || 0,
-            defaultRiskPct: ba.default_risk_pct,
-            trades: [],
-          }));
-
-          return {
-            ...prev,
-            accounts: mappedAccounts,
-            activeAccountId: mappedAccounts.length > 0 ? mappedAccounts[0].id : null,
-          };
-        });
-      })
-      .catch((e) => {
-        console.error("Failed to load accounts:", e);
-      })
-      .finally(() => {
-        setAccountsLoading(false);
-      });
-  }, [isLoggedIn, authChecked]);
+  // ✅ 2) Load accounts - REMOVED for Demo (uses initial state)
+  // useEffect(() => { ... }, []);
 
   // ✅ 3) Save state to localStorage (only while logged in)
   useEffect(() => {
@@ -1355,88 +1325,8 @@ export default function App() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [state, isLoggedIn]);
 
-  // ✅ 4) Load trades for active account (only when logged in)
-  useEffect(() => {
-    if (!isLoggedIn || !activeAccount) return;
-
-    // prevent re-loading for the same account repeatedly
-    if (lastLoadedAccountIdRef.current === state.activeAccountId) return;
-    lastLoadedAccountIdRef.current = state.activeAccountId;
-
-    setBackendSyncing(true);
-
-    apiLoadTrades()
-      .then((backendTrades) => {
-        setState((prev) => {
-          const nextAccounts = prev.accounts.map((acc) => {
-            if (acc.id !== prev.activeAccountId) return acc;
-
-            const accountTrades = backendTrades.filter((bt) => {
-              const tradeAccountId = bt.account_id ? Number(bt.account_id) : null;
-              const currentAccountId = acc.backendId ? Number(acc.backendId) : null;
-              return tradeAccountId === currentAccountId || bt.account_id === null;
-            });
-
-            const existingBackendIds = new Set(
-              (acc.trades || []).map((t) => String(t.backendId)).filter(Boolean)
-            );
-
-            const mapped = accountTrades
-              .filter((bt) => !existingBackendIds.has(String(bt.id)))
-              .map((bt) => {
-                const resultRaw = String(bt.result || "").toLowerCase();
-                const isBE = resultRaw === "breakeven" || resultRaw === "be";
-
-                return {
-                  id: `b_${bt.id}`,
-                  backendId: bt.id,
-                  createdAt: bt.created_at ? new Date(bt.created_at).getTime() : Date.now(),
-
-                  ticker: bt.instrument,
-                  side: bt.direction,
-
-                  entryPrice: bt.entry ?? null,
-                  stopPrice: bt.stop_loss ?? null,
-                  exitPrice: bt.take_profit ?? null,
-
-                  notes: bt.notes ?? "",
-                  dollarAmount: Number(bt.pnl) || 0,
-                  feeling: bt.emotion || "😑",
-                  tags: Array.isArray(bt.tags) ? bt.tags : (bt.tags ? JSON.parse(bt.tags) : []),
-                  screenshots: bt.screenshots || [],
-                  session: bt.session || "",
-                  date: bt.trade_date || (bt.created_at || "").slice(0, 10),
-                  startDateTime: bt.trade_date
-                    ? `${bt.trade_date.slice(0, 10)}T12:00`
-                    : bt.created_at
-                      ? bt.created_at.slice(0, 16)
-                      : "",
-                  endDateTime: "",
-                  time: "",
-                  durationMin: bt.duration_min,
-                  pnlPercent: null,
-                  riskPctUsed: null,
-                  isBreakeven: isBE,
-                  quantity: bt.lots,
-                };
-              });
-
-            return {
-              ...acc,
-              trades: [...mapped, ...(acc.trades || [])],
-            };
-          });
-
-          return { ...prev, accounts: nextAccounts };
-        });
-
-        setBackendSyncing(false);
-      })
-      .catch((e) => {
-        console.error(e);
-        setBackendSyncing(false);
-      });
-  }, [state.activeAccountId, isLoggedIn, activeAccount]);
+  // ✅ 4) Load trades - REMOVED for Demo (uses embedded trades)
+  // useEffect(() => { ... }, []);
 
   // =========================================================================
   // ROUTING & GATES
