@@ -838,7 +838,7 @@ export default function App() {
       currency: "USD",
       trades: [
         {
-          id: 1001, backendId: 1001, // ✅ Matches backendId for mapping dedupe
+          id: 1001, backendId: 1001,
           account_id: 101,
           instrument: "NAS100", ticker: "NAS100",
           direction: "long", side: "long",
@@ -851,7 +851,8 @@ export default function App() {
           result: "win",
           trade_date: "2026-02-10", date: "2026-02-10",
           notes: "Clean breakout on the H1 timeframe. Strong momentum.",
-          feeling: "happy",
+          feeling: "happy", // Matches emoji mapping if exists, or use direct emoji: "😁"
+          session: "New York",
           tags: ["breakout", "trend"],
           screenshots: [{ url: "https://via.placeholder.com/800x400?text=NAS100+Breakout" }]
         },
@@ -870,6 +871,7 @@ export default function App() {
           trade_date: "2026-02-11", date: "2026-02-11",
           notes: "Key resistance rejection at weekly level.",
           feeling: "confident",
+          session: "London",
           tags: ["rejection", "weekly-level"],
           screenshots: [{ url: "https://via.placeholder.com/800x400?text=Gold+Short" }]
         },
@@ -888,6 +890,7 @@ export default function App() {
           trade_date: "2026-02-11", date: "2026-02-11",
           notes: "Stop hunted before the pump. Entered too early.",
           feeling: "frustrated",
+          session: "Asian",
           tags: ["crypto", "failed-breakout"],
           screenshots: [{ url: "https://via.placeholder.com/800x400?text=BTC+Stop+Hunt" }]
         },
@@ -906,6 +909,7 @@ export default function App() {
           trade_date: "2026-02-12", date: "2026-02-12",
           notes: "Tightened SL too early to protect profits.",
           feeling: "neutral",
+          session: "New York",
           tags: ["managed", "be"],
           screenshots: [{ url: "https://via.placeholder.com/800x400?text=NAS+BE" }]
         },
@@ -924,6 +928,7 @@ export default function App() {
           trade_date: "2026-02-12", date: "2026-02-12",
           notes: "Classic trend continuation on 15m.",
           feeling: "focused",
+          session: "London",
           tags: ["forex", "trend"],
           screenshots: [{ url: "https://via.placeholder.com/800x400?text=EURUSD+Short" }]
         },
@@ -942,6 +947,7 @@ export default function App() {
           trade_date: "2026-02-13", date: "2026-02-13",
           notes: "Huge flush after CPI data. Caught the wick.",
           feeling: "excited",
+          session: "New York",
           tags: ["news", "flush"],
           screenshots: [{ url: "https://via.placeholder.com/800x400?text=US30+CPI" }]
         },
@@ -960,6 +966,7 @@ export default function App() {
           trade_date: "2026-02-13", date: "2026-02-13",
           notes: "Earnings run-up play. Volume confirmed.",
           feeling: "happy",
+          session: "New York",
           tags: ["stocks", "earnings"],
           screenshots: [{ url: "https://via.placeholder.com/800x400?text=NVDA+Long" }]
         },
@@ -978,6 +985,7 @@ export default function App() {
           trade_date: "2026-02-14", date: "2026-02-14",
           notes: "Counter-trend attempt failed.",
           feeling: "annoyed",
+          session: "New York",
           tags: ["counter-trend", "stocks"],
           screenshots: [{ url: "https://via.placeholder.com/800x400?text=TSLA+Loss" }]
         },
@@ -996,6 +1004,7 @@ export default function App() {
           trade_date: "2026-02-14", date: "2026-02-14",
           notes: "Weekend pump setup. 4H bullish engulfing.",
           feeling: "relaxed",
+          session: "Asian",
           tags: ["crypto", "weekend"],
           screenshots: [{ url: "https://via.placeholder.com/800x400?text=ETH+Pump" }]
         },
@@ -1014,6 +1023,7 @@ export default function App() {
           trade_date: "2026-02-15", date: "2026-02-15",
           notes: "Psychological level rejection at 5020.",
           feeling: "confident",
+          session: "London",
           tags: ["indices", "rejection"],
           screenshots: [{ url: "https://via.placeholder.com/800x400?text=SPX+Short" }]
         }
@@ -1702,56 +1712,10 @@ export default function App() {
   };
 
   const handleToggleBreakeven = (id) => {
-    if (!activeAccount) return;
-
-    // 1. Find the trade in the current active account
-    const trade = activeAccount.trades.find(t => t.id === id);
-    if (!trade) return;
-
-    // 2. New value
-    const newVal = !trade.isBreakeven;
-
-    // 3. Optimistic update (Local State)
-    setState(prev => ({
-      ...prev,
-      accounts: prev.accounts.map(acc =>
-        acc.id === prev.activeAccountId
-          ? {
-            ...acc,
-            trades: acc.trades.map(t =>
-              t.id === id ? { ...t, isBreakeven: newVal } : t
-            ),
-          }
-          : acc
-      )
-    }));
-
-    // Keep selectedTrade in sync so UI updates instantly
-    setSelectedTrade(prev =>
-      prev && prev.id === id ? { ...prev, isBreakeven: newVal } : prev
-    );
-
-    // 4. Backend update (Critical for Analytics)
-    if (trade.backendId) {
-      // Create updated trade object to generate correct payload
-      const updatedTrade = { ...trade, isBreakeven: newVal };
-      const payload = mapLocalTradeToBackend(updatedTrade);
-
-      console.log("Saving Breakeven Toggle:", { id, newVal, payload }); // ✅ DEBUG LOG
-
-      apiUpdateTrade(trade.backendId, payload)
-        .then(() => {
-          // Notify AnalyticsUI to reload
-          window.dispatchEvent(new CustomEvent('trades:changed'));
-          setToastMessage(newVal ? "Marked as Breakeven" : "Unmarked Breakeven");
-        })
-        .catch(e => {
-          console.error("Failed to update breakeven status:", e);
-          setToastMessage("⚠️ Failed to save status");
-          // Optionally revert state here if strict consistency is needed
-        });
-    }
+    setToastMessage("🔒 Demo Mode: Breakeven toggle is disabled.");
   };
+
+
 
 
   // =========================================================================
