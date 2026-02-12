@@ -833,6 +833,8 @@ export default function App() {
       instrument: "NAS100",
       direction: "long",
       entry: 15400.5,
+      stop_loss: 15350.0, // ✅ Added for mapping
+      take_profit: 15650.0, // ✅ Added for mapping
       exit: 15620.2,
       pnl: 2200.00,
       lots: 10,
@@ -840,7 +842,7 @@ export default function App() {
       trade_date: "2026-02-10",
       notes: "Clean breakout on the H1 timeframe. Strong momentum.",
       feeling: "happy",
-      tags: ["breakout", "trend"],
+      tags: JSON.stringify(["breakout", "trend"]), // ✅ Stringified for parser
       screenshots: [{ url: "https://via.placeholder.com/800x400?text=NAS100+Breakout" }]
     },
     {
@@ -849,6 +851,8 @@ export default function App() {
       instrument: "XAUUSD",
       direction: "short",
       entry: 2042.1,
+      stop_loss: 2045.0,
+      take_profit: 2035.0,
       exit: 2038.5,
       pnl: 3600.00,
       lots: 10,
@@ -856,7 +860,7 @@ export default function App() {
       trade_date: "2026-02-11",
       notes: "Key resistance rejection at weekly level.",
       feeling: "confident",
-      tags: ["rejection", "weekly-level"],
+      tags: JSON.stringify(["rejection", "weekly-level"]),
       screenshots: [{ url: "https://via.placeholder.com/800x400?text=Gold+Short" }]
     },
     {
@@ -865,6 +869,8 @@ export default function App() {
       instrument: "BTCUSDT",
       direction: "long",
       entry: 43200,
+      stop_loss: 42800,
+      take_profit: 44000,
       exit: 42800,
       pnl: -400.00,
       lots: 1,
@@ -872,7 +878,7 @@ export default function App() {
       trade_date: "2026-02-11",
       notes: "Stop hunted before the pump. Entered too early.",
       feeling: "frustrated",
-      tags: ["crypto", "failed-breakout"],
+      tags: JSON.stringify(["crypto", "failed-breakout"]),
       screenshots: [{ url: "https://via.placeholder.com/800x400?text=BTC+Stop+Hunt" }]
     },
     {
@@ -881,6 +887,8 @@ export default function App() {
       instrument: "NAS100",
       direction: "long",
       entry: 15600,
+      stop_loss: 15580,
+      take_profit: 15700,
       exit: 15600.5,
       pnl: 50.00,
       lots: 10,
@@ -888,7 +896,7 @@ export default function App() {
       trade_date: "2026-02-12",
       notes: "Tightened SL too early to protect profits.",
       feeling: "neutral",
-      tags: ["managed", "be"],
+      tags: JSON.stringify(["managed", "be"]),
       screenshots: [{ url: "https://via.placeholder.com/800x400?text=NAS+BE" }]
     },
     {
@@ -897,6 +905,8 @@ export default function App() {
       instrument: "EURUSD",
       direction: "short",
       entry: 1.0850,
+      stop_loss: 1.0870,
+      take_profit: 1.0800,
       exit: 1.0810,
       pnl: 400.00,
       lots: 5,
@@ -904,7 +914,7 @@ export default function App() {
       trade_date: "2026-02-12",
       notes: "Classic trend continuation on 15m.",
       feeling: "focused",
-      tags: ["forex", "trend"],
+      tags: JSON.stringify(["forex", "trend"]),
       screenshots: [{ url: "https://via.placeholder.com/800x400?text=EURUSD+Short" }]
     },
     {
@@ -913,6 +923,8 @@ export default function App() {
       instrument: "US30",
       direction: "short",
       entry: 38500,
+      stop_loss: 38600,
+      take_profit: 38200,
       exit: 38200,
       pnl: 3000.00,
       lots: 10,
@@ -920,7 +932,7 @@ export default function App() {
       trade_date: "2026-02-13",
       notes: "Huge flush after CPI data. Caught the wick.",
       feeling: "excited",
-      tags: ["news", "flush"],
+      tags: JSON.stringify(["news", "flush"]),
       screenshots: [{ url: "https://via.placeholder.com/800x400?text=US30+CPI" }]
     },
     {
@@ -929,6 +941,8 @@ export default function App() {
       instrument: "NVDA",
       direction: "long",
       entry: 720.50,
+      stop_loss: 710.00,
+      take_profit: 740.00,
       exit: 735.00,
       pnl: 1450.00,
       lots: 100,
@@ -936,7 +950,7 @@ export default function App() {
       trade_date: "2026-02-13",
       notes: "Earnings run-up play. Volume confirmed.",
       feeling: "happy",
-      tags: ["stocks", "earnings"],
+      tags: JSON.stringify(["stocks", "earnings"]),
       screenshots: [{ url: "https://via.placeholder.com/800x400?text=NVDA+Long" }]
     },
     {
@@ -945,6 +959,8 @@ export default function App() {
       instrument: "TSLA",
       direction: "short",
       entry: 190.00,
+      stop_loss: 195.00,
+      take_profit: 180.00,
       exit: 192.50,
       pnl: -250.00,
       lots: 100,
@@ -952,7 +968,7 @@ export default function App() {
       trade_date: "2026-02-14",
       notes: "Counter-trend attempt failed.",
       feeling: "annoyed",
-      tags: ["counter-trend", "stocks"],
+      tags: JSON.stringify(["counter-trend", "stocks"]),
       screenshots: [{ url: "https://via.placeholder.com/800x400?text=TSLA+Loss" }]
     },
     {
@@ -961,6 +977,8 @@ export default function App() {
       instrument: "ETHUSDT",
       direction: "long",
       entry: 2500,
+      stop_loss: 2450,
+      take_profit: 2700,
       exit: 2650,
       pnl: 1500.00,
       lots: 10,
@@ -968,7 +986,7 @@ export default function App() {
       trade_date: "2026-02-14",
       notes: "Weekend pump setup. 4H bullish engulfing.",
       feeling: "relaxed",
-      tags: ["crypto", "weekend"],
+      tags: JSON.stringify(["crypto", "weekend"]),
       screenshots: [{ url: "https://via.placeholder.com/800x400?text=ETH+Pump" }]
     },
     {
@@ -977,6 +995,8 @@ export default function App() {
       instrument: "SPX500",
       direction: "short",
       entry: 5020,
+      stop_loss: 5035,
+      take_profit: 4980,
       exit: 4980,
       pnl: 4000.00,
       lots: 100,
@@ -984,7 +1004,7 @@ export default function App() {
       trade_date: "2026-02-15",
       notes: "Psychological level rejection at 5020.",
       feeling: "confident",
-      tags: ["indices", "rejection"],
+      tags: JSON.stringify(["indices", "rejection"]),
       screenshots: [{ url: "https://via.placeholder.com/800x400?text=SPX+Short" }]
     }
   ];
