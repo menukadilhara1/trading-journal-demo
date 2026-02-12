@@ -1096,32 +1096,9 @@ export default function App() {
 
 
   const handleDeleteAccount = async (accountId) => {
-    const account = state.accounts.find(a => a.id === accountId);
-    if (!account?.backendId) return;
-
-    try {
-      // Delete account in backend (cascade deletes trades)
-      await apiDeleteAccount(account.backendId);
-
-      // Update frontend state
-      setState((prev) => {
-        if (prev.accounts.length <= 1) return prev;
-
-        const remaining = prev.accounts.filter((a) => a.id !== accountId);
-        if (remaining.length === 0) return prev;
-
-        return {
-          ...prev,
-          accounts: remaining,
-          activeAccountId: remaining[0].id,
-        };
-      });
-
-      setToastMessage("Account deleted");
-    } catch (e) {
-      console.error("Failed to delete account:", e);
-      setToastMessage("⚠️ Failed to delete account");
-    }
+    // DEMO RESTRICTION
+    setToastMessage("🔒 Demo Mode: Deleting accounts is disabled.");
+    return;
   };
 
   useEffect(() => {
@@ -1802,235 +1779,9 @@ export default function App() {
 
 
   const handleAddTrade = (tradeData) => {
-    if (!state.isSubscribed && activeTrades.length >= MAX_TRADES_FREE) {
-      alert(`Trial limited to ${MAX_TRADES_FREE} trades. Upgrade to unlock.`);
-      return;
-    }
-
-    const validationErrors = validateTradeInput(tradeData);
-    if (validationErrors.length > 0) {
-      setToastMessage(`⚠️ ${validationErrors[0]}`);
-      return;
-    }
-
-    if (!activeAccount) {
-      alert("Create an account first.");
-      return;
-    }
-
-    setTradeSaving(true);
-
-    const files = Array.isArray(tradeData?.__screenshotFiles)
-      ? tradeData.__screenshotFiles
-      : [];
-
-    // OPTIMISTIC UPDATE: Update UI immediately before API call
-
-    // -------------------------------------------------------------------------
-    // CASE 1: UPDATE EXISTING TRADE
-    // -------------------------------------------------------------------------
-    if (editingTrade && (editingTrade.backendId || null)) {
-      const prevTrade = { ...editingTrade }; // Snapshot for rollback
-
-      // 1. Update UI Optimistically
-      setState((prev) => ({
-        ...prev,
-        accounts: prev.accounts.map((acc) => {
-          if (acc.id !== prev.activeAccountId) return acc;
-          return {
-            ...acc,
-            trades: acc.trades.map((t) =>
-              t.id === editingTrade.id
-                ? { ...t, ...tradeData, backendId: editingTrade.backendId }
-                : t
-            ),
-          };
-        }),
-      }));
-
-      setToastMessage("✅ Updated");
-      window.dispatchEvent(new CustomEvent('trades:changed'));
-      setShowTradeForm(false);
-      setSelectedMood(null);
-      setEditingTrade(null);
-      setSelectedTrade(null);
-
-      // 2. Call API in background
-      apiUpdateTrade(editingTrade.backendId, mapLocalTradeToBackend(tradeData))
-        .then(async () => {
-          // ✅ Upload screenshots on EDIT too
-          if (editingTrade.backendId && files.length > 0) {
-            const results = await Promise.all(
-              files.slice(0, MAX_SCREENSHOTS).map((file) =>
-                apiUploadScreenshot(editingTrade.backendId, file)
-              )
-            );
-
-            // ✅ prefer screenshots array returned from backend (truth)
-            const lastScreens = results
-              .map((r) => r?.screenshots)
-              .filter((arr) => Array.isArray(arr) && arr.length > 0)
-              .pop();
-
-            const urls = results.map((r) => r?.url).filter(Boolean);
-            const nextScreens = Array.isArray(lastScreens) ? lastScreens : urls;
-
-            if (nextScreens.length > 0) {
-              setState((prev) => ({
-                ...prev,
-                accounts: prev.accounts.map((acc) => {
-                  if (acc.id !== prev.activeAccountId) return acc;
-                  return {
-                    ...acc,
-                    trades: acc.trades.map((t) =>
-                      t.id === editingTrade.id
-                        ? { ...t, screenshots: nextScreens, backendId: editingTrade.backendId }
-                        : t
-                    ),
-                  };
-                }),
-              }));
-            }
-
-            // ✅ DO NOT call apiUpdateTrade(...) with screenshots anymore.
-          }
-        })
-        .catch((e) => {
-          // 3. Rollback on failure
-          console.error("Update failed, rolling back", e);
-          setToastMessage(`⚠️ Update failed. Reverting...`);
-
-          setState((prev) => ({
-            ...prev,
-            accounts: prev.accounts.map((acc) => {
-              if (acc.id !== prev.activeAccountId) return acc;
-              return {
-                ...acc,
-                trades: acc.trades.map((t) =>
-                  t.id === editingTrade.id ? prevTrade : t
-                ),
-              };
-            }),
-          }));
-        })
-        .finally(() => setTradeSaving(false));
-
-      return;
-    }
-
-    // -------------------------------------------------------------------------
-    // CASE 2: CREATE NEW TRADE
-    // -------------------------------------------------------------------------
-
-    // 1. Create Temp ID and Update UI Optimistically
-    const tempId = "temp_" + Date.now();
-    const tempTrade = {
-      ...tradeData,
-      id: tempId,
-      backendId: null, // Will be filled after API success
-      createdAt: Date.now(),
-      account_id: activeAccount.backendId,
-    };
-
-    setState((prev) => ({
-      ...prev,
-      accounts: prev.accounts.map((acc) => {
-        if (acc.id !== prev.activeAccountId) return acc;
-        return {
-          ...acc,
-          trades: [tempTrade, ...(acc.trades || [])],
-        };
-      }),
-    }));
-
-    setToastMessage("✅ Saved");
-    window.dispatchEvent(new CustomEvent('trades:changed'));
-    setShowTradeForm(false);
-    setSelectedMood(null);
-    setEditingTrade(null);
-    setSelectedTrade(null);
-
-    // 2. Call API in background
-    apiCreateTrade(mapLocalTradeToBackend(tradeData))
-      .then((created) => {
-        const realId = String(created?.id ?? "");
-
-        // 3. Replace temp ID with real ID
-        setState((prev) => ({
-          ...prev,
-          accounts: prev.accounts.map((acc) => {
-            if (acc.id !== prev.activeAccountId) return acc;
-            return {
-              ...acc,
-              trades: acc.trades.map(t =>
-                t.id === tempId
-                  ? { ...t, id: realId, backendId: realId }
-                  : t
-              ),
-            };
-          }),
-        }));
-
-        // 4. Upload screenshots if any
-        if (realId && files.length > 0) {
-          Promise.all(
-            files.slice(0, MAX_SCREENSHOTS).map((file) =>
-              apiUploadScreenshot(realId, file)
-            )
-          )
-            .then((results) => {
-              // ✅ backend returns { url, screenshots }
-              const lastScreens = results
-                .map((r) => r?.screenshots)
-                .filter((arr) => Array.isArray(arr) && arr.length > 0)
-                .pop();
-
-              const urls = results.map((r) => r?.url).filter(Boolean);
-              const nextScreens = Array.isArray(lastScreens) ? lastScreens : urls;
-
-              if (nextScreens.length > 0) {
-                setState((prev) => ({
-                  ...prev,
-                  accounts: prev.accounts.map((acc) => {
-                    if (acc.id !== prev.activeAccountId) return acc;
-                    return {
-                      ...acc,
-                      trades: acc.trades.map((t) =>
-                        t.id === realId ? { ...t, screenshots: nextScreens } : t
-                      ),
-                    };
-                  }),
-                }));
-              }
-
-              // ✅ DO NOT call apiUpdateTrade(...) anymore. Backend already saved screenshots.
-            })
-            .catch((err) => {
-              setToastMessage(
-                `⚠️ Trade saved, screenshot upload failed: ${String(
-                  err?.message || "Unknown error"
-                )}`
-              );
-            });
-        }
-        setToastMessage("✅ Saved");
-
-        window.dispatchEvent(new CustomEvent('trades:changed'));
-
-        setShowTradeForm(false);
-
-        // close modal only after backend success
-        setShowTradeForm(false);
-        setSelectedMood(null);
-        setEditingTrade(null);
-        setSelectedTrade(null);
-      })
-      .catch((e) => {
-        setToastMessage(
-          `⚠️ Save failed: ${String((e && e.message) || "Unknown error")}`
-        );
-      })
-      .finally(() => setTradeSaving(false));
+    // DEMO RESTRICTION: Block all adds/edits
+    setToastMessage("🔒 Demo Mode: Adding/Editing trades is disabled.");
+    return;
   };
 
 
@@ -2042,50 +1793,9 @@ export default function App() {
   };
 
   const handleDeleteTrade = (id) => {
-    if (!activeAccount) return;
-
-    // Find the trade before deleting (need backendId)
-    const tradeToDelete =
-      (activeAccount.trades || []).find((t) => t.id === id) || null;
-
-    // Optimistic delete: remove instantly, no loading state needed globally
-    // setTradeDeleting(true); <--- REMOVED to fix "stuck deleting" bug
-
-    // If there is no backendId, we cannot delete on backend.
-    // In your current phase you said you have no legacy data, so this should basically never happen.
-
-    // OPTIMISTIC DELETION
-
-    const prevAccounts = [...state.accounts]; // Snapshot for rollback
-
-    // 1. Remove locally immediately
-    setState((prev) => ({
-      ...prev,
-      accounts: prev.accounts.map((acc) =>
-        acc.id === prev.activeAccountId
-          ? { ...acc, trades: (acc.trades || []).filter((t) => t.id !== id) }
-          : acc
-      ),
-    }));
-
-    setShowDeleteConfirm(null);
-    setSelectedTrade(null);
-    setToastMessage("🗑️ Deleted");
-    window.dispatchEvent(new CustomEvent('trades:changed'));
-
-    // 2. Call API in background
-    apiDeleteTrade(tradeToDelete.backendId)
-      .catch((e) => {
-        // 3. Rollback on failure
-        console.error("Delete failed, rolling back", e);
-        setToastMessage(`⚠️ Delete failed. Restoring...`);
-
-        setState((prev) => ({
-          ...prev,
-          accounts: prevAccounts
-        }));
-      });
-    // .finally(() => setTradeDeleting(false)); <--- REMOVED
+    // DEMO RESTRICTION: Block delete
+    setToastMessage("🔒 Demo Mode: Deleting trades is disabled.");
+    return;
   };
 
 
@@ -2678,80 +2388,27 @@ export default function App() {
 
       {/* MODALS OUTSIDE MAIN WRAPPER (cleaner, avoids layout clipping) */}
       <CreateAccountModal
-        open={createAccountOpen}
+        isOpen={createAccountOpen}
         isLoading={accountCreating}
         onClose={() => setCreateAccountOpen(false)}
         onCreate={async ({ name, startingBalance, defaultRiskPct }) => {
-          try {
-            setAccountCreating(true);
-            // Create account in backend
-            const backendAccount = await apiCreateAccount({
-              name,
-              starting_balance: startingBalance,
-              default_risk_pct: defaultRiskPct,
-            });
-
-            // Add to frontend state
-            const acc = {
-              id: String(backendAccount.id),
-              backendId: backendAccount.id,
-              name: backendAccount.name,
-              startingBalance: backendAccount.starting_balance,
-              defaultRiskPct: backendAccount.default_risk_pct,
-              trades: [],
-            };
-
-            setState((prev) => ({
-              ...prev,
-              accounts: [acc, ...prev.accounts],
-              activeAccountId: acc.id,
-            }));
-
-            setCreateAccountOpen(false);
-            setToastMessage("Account created!");
-          } catch (err) {
-            console.error(err);
-            alert("Failed to create account");
-            setToastMessage("⚠️ Failed to create account");
-          } finally {
-            setAccountCreating(false);
-          }
+          setToastMessage("🔒 Demo Mode: Adding accounts is disabled.");
+          setCreateAccountOpen(false);
+          return;
         }}
       />
 
       <EditAccountModal
-        open={editAccountOpen}
+        isOpen={editAccountOpen}
+        isLoading={accountCreating}
+        initialData={activeAccount}
         onClose={() => setEditAccountOpen(false)}
-        account={activeAccount}
         onDelete={() => setDeleteAccountId(activeAccount?.id)}
         isLastAccount={state.accounts.length === 1}
         onSave={async ({ name, startingBalance, defaultRiskPct }) => {
-          if (!activeAccount?.backendId) return;
-
-          try {
-            // Update account in backend
-            await apiUpdateAccount(activeAccount.backendId, {
-              name,
-              starting_balance: startingBalance,
-              default_risk_pct: defaultRiskPct,
-            });
-
-            // Update frontend state
-            setState((prev) => ({
-              ...prev,
-              accounts: prev.accounts.map((a) =>
-                a.id === prev.activeAccountId
-                  ? { ...a, name, startingBalance, defaultRiskPct }
-                  : a
-              ),
-            }));
-
-            setEditAccountOpen(false);
-            setToastMessage("Account updated!");
-          } catch (e) {
-            console.error("Failed to update account:", e);
-            setToastMessage("⚠️ Failed to update account");
-          }
+          setToastMessage("🔒 Demo Mode: Editing accounts is disabled.");
+          setEditAccountOpen(false);
+          return;
         }}
       />
 
@@ -2810,8 +2467,6 @@ export default function App() {
           onConfirm={() => {
             handleDeleteAccount(deleteAccountId);
             setDeleteAccountId(null);
-            setEditAccountOpen(false);
-            setToastMessage("Account deleted");
           }}
           onCancel={() => setDeleteAccountId(null)}
         />
