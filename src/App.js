@@ -826,33 +826,169 @@ export default function App() {
     trial_ends_at: null
   };
 
+  const MOCK_TRADES = [
+    {
+      id: 1001,
+      instrument: "NAS100",
+      direction: "long",
+      entry: 15400.5,
+      exit: 15620.2,
+      pnl: 2200.00,
+      lots: 10,
+      result: "win",
+      trade_date: "2026-02-10",
+      notes: "Clean breakout on the H1 timeframe. Strong momentum.",
+      feeling: "happy",
+      tags: ["breakout", "trend"],
+      screenshots: [{ url: "https://via.placeholder.com/800x400?text=NAS100+Breakout" }]
+    },
+    {
+      id: 1002,
+      instrument: "XAUUSD",
+      direction: "short",
+      entry: 2042.1,
+      exit: 2038.5,
+      pnl: 3600.00,
+      lots: 10,
+      result: "win",
+      trade_date: "2026-02-11",
+      notes: "Key resistance rejection at weekly level.",
+      feeling: "confident",
+      tags: ["rejection", "weekly-level"],
+      screenshots: [{ url: "https://via.placeholder.com/800x400?text=Gold+Short" }]
+    },
+    {
+      id: 1003,
+      instrument: "BTCUSDT",
+      direction: "long",
+      entry: 43200,
+      exit: 42800,
+      pnl: -400.00,
+      lots: 1,
+      result: "loss",
+      trade_date: "2026-02-11",
+      notes: "Stop hunted before the pump. Entered too early.",
+      feeling: "frustrated",
+      tags: ["crypto", "failed-breakout"],
+      screenshots: [{ url: "https://via.placeholder.com/800x400?text=BTC+Stop+Hunt" }]
+    },
+    {
+      id: 1004,
+      instrument: "NAS100",
+      direction: "long",
+      entry: 15600,
+      exit: 15600.5,
+      pnl: 50.00,
+      lots: 10,
+      result: "breakeven",
+      trade_date: "2026-02-12",
+      notes: "Tightened SL too early to protect profits.",
+      feeling: "neutral",
+      tags: ["managed", "be"],
+      screenshots: [{ url: "https://via.placeholder.com/800x400?text=NAS+BE" }]
+    },
+    {
+      id: 1005,
+      instrument: "EURUSD",
+      direction: "short",
+      entry: 1.0850,
+      exit: 1.0810,
+      pnl: 400.00,
+      lots: 5,
+      result: "win",
+      trade_date: "2026-02-12",
+      notes: "Classic trend continuation on 15m.",
+      feeling: "focused",
+      tags: ["forex", "trend"],
+      screenshots: [{ url: "https://via.placeholder.com/800x400?text=EURUSD+Short" }]
+    },
+    {
+      id: 1006,
+      instrument: "US30",
+      direction: "short",
+      entry: 38500,
+      exit: 38200,
+      pnl: 3000.00,
+      lots: 10,
+      result: "win",
+      trade_date: "2026-02-13",
+      notes: "Huge flush after CPI data. Caught the wick.",
+      feeling: "excited",
+      tags: ["news", "flush"],
+      screenshots: [{ url: "https://via.placeholder.com/800x400?text=US30+CPI" }]
+    },
+    {
+      id: 1007,
+      instrument: "NVDA",
+      direction: "long",
+      entry: 720.50,
+      exit: 735.00,
+      pnl: 1450.00,
+      lots: 100,
+      result: "win",
+      trade_date: "2026-02-13",
+      notes: "Earnings run-up play. Volume confirmed.",
+      feeling: "happy",
+      tags: ["stocks", "earnings"],
+      screenshots: [{ url: "https://via.placeholder.com/800x400?text=NVDA+Long" }]
+    },
+    {
+      id: 1008,
+      instrument: "TSLA",
+      direction: "short",
+      entry: 190.00,
+      exit: 192.50,
+      pnl: -250.00,
+      lots: 100,
+      result: "loss",
+      trade_date: "2026-02-14",
+      notes: "Counter-trend attempt failed.",
+      feeling: "annoyed",
+      tags: ["counter-trend", "stocks"],
+      screenshots: [{ url: "https://via.placeholder.com/800x400?text=TSLA+Loss" }]
+    },
+    {
+      id: 1009,
+      instrument: "ETHUSDT",
+      direction: "long",
+      entry: 2500,
+      exit: 2650,
+      pnl: 1500.00,
+      lots: 10,
+      result: "win",
+      trade_date: "2026-02-14",
+      notes: "Weekend pump setup. 4H bullish engulfing.",
+      feeling: "relaxed",
+      tags: ["crypto", "weekend"],
+      screenshots: [{ url: "https://via.placeholder.com/800x400?text=ETH+Pump" }]
+    },
+    {
+      id: 1010,
+      instrument: "SPX500",
+      direction: "short",
+      entry: 5020,
+      exit: 4980,
+      pnl: 4000.00,
+      lots: 100,
+      result: "win",
+      trade_date: "2026-02-15",
+      notes: "Psychological level rejection at 5020.",
+      feeling: "confident",
+      tags: ["indices", "rejection"],
+      screenshots: [{ url: "https://via.placeholder.com/800x400?text=SPX+Short" }]
+    }
+  ];
+
   const MOCK_ACCOUNTS = [
     {
       id: "demo-acc-1",
       backendId: 101,
       name: "Main Portfolio",
-      startingBalance: 10000,
+      startingBalance: 100000,
       defaultRiskPct: 1,
       currency: "USD",
       trades: []
-    },
-    {
-      id: "demo-acc-2",
-      backendId: 102,
-      name: "Aggressive Growth",
-      startingBalance: 5000,
-      defaultRiskPct: 2,
-      currency: "USD",
-      trades: []
     }
-  ];
-
-  const MOCK_TRADES = [
-    { id: 1001, instrument: "NAS100", direction: "long", entry: 15400.5, exit: 15620.2, pnl: 450.00, lots: 1, result: "win", trade_date: "2026-02-10", notes: "Breakout play on H1", screenshots: [] },
-    { id: 1002, instrument: "XAUUSD", direction: "short", entry: 2042.1, exit: 2038.5, pnl: 360.00, lots: 2, result: "win", trade_date: "2026-02-11", notes: "Resistance rejection", screenshots: [] },
-    { id: 1003, instrument: "BTCUSDT", direction: "long", entry: 43200, exit: 42800, pnl: -400.00, lots: 0.1, result: "loss", trade_date: "2026-02-11", notes: "Stop hunted before pump", screenshots: [] },
-    { id: 1004, instrument: "NAS100", direction: "long", entry: 15600, exit: 15600.5, pnl: 5.00, lots: 1, result: "breakeven", trade_date: "2026-02-12", notes: "Tightened SL too early", screenshots: [] },
-    { id: 1005, instrument: "EURUSD", direction: "short", entry: 1.0850, exit: 1.0810, pnl: 400.00, lots: 5, result: "win", trade_date: "2026-02-12", notes: "Trend continuation", screenshots: [] },
   ];
 
   // Attach trades to the first account
