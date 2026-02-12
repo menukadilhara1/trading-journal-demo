@@ -23,7 +23,17 @@ const LEGACY_MAP = {
     "happy": "good",
     "stressed": "worst",
     "frustrated": "bad",
-    "tired": "bad", // or meh
+    "tired": "bad",
+    // New mappings for demo data
+    "excited": "confident",
+    "annoyed": "bad",
+    "focused": "confident",
+    "relaxed": "good",
+    "confident": "confident", // ensures direct mapping works if case differs
+    "good": "good",
+    "meh": "meh",
+    "bad": "bad",
+    "worst": "worst"
 };
 
 // Helper to get the full mood object (handling legacy)
