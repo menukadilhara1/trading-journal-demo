@@ -829,6 +829,7 @@ export default function App() {
   const MOCK_TRADES = [
     {
       id: 1001,
+      account_id: 101, // ✅ Matches account backendId
       instrument: "NAS100",
       direction: "long",
       entry: 15400.5,
@@ -844,6 +845,7 @@ export default function App() {
     },
     {
       id: 1002,
+      account_id: 101,
       instrument: "XAUUSD",
       direction: "short",
       entry: 2042.1,
@@ -859,6 +861,7 @@ export default function App() {
     },
     {
       id: 1003,
+      account_id: 101,
       instrument: "BTCUSDT",
       direction: "long",
       entry: 43200,
@@ -874,6 +877,7 @@ export default function App() {
     },
     {
       id: 1004,
+      account_id: 101,
       instrument: "NAS100",
       direction: "long",
       entry: 15600,
@@ -889,6 +893,7 @@ export default function App() {
     },
     {
       id: 1005,
+      account_id: 101,
       instrument: "EURUSD",
       direction: "short",
       entry: 1.0850,
@@ -904,6 +909,7 @@ export default function App() {
     },
     {
       id: 1006,
+      account_id: 101,
       instrument: "US30",
       direction: "short",
       entry: 38500,
@@ -919,6 +925,7 @@ export default function App() {
     },
     {
       id: 1007,
+      account_id: 101,
       instrument: "NVDA",
       direction: "long",
       entry: 720.50,
@@ -934,6 +941,7 @@ export default function App() {
     },
     {
       id: 1008,
+      account_id: 101,
       instrument: "TSLA",
       direction: "short",
       entry: 190.00,
@@ -949,6 +957,7 @@ export default function App() {
     },
     {
       id: 1009,
+      account_id: 101,
       instrument: "ETHUSDT",
       direction: "long",
       entry: 2500,
@@ -964,6 +973,7 @@ export default function App() {
     },
     {
       id: 1010,
+      account_id: 101,
       instrument: "SPX500",
       direction: "short",
       entry: 5020,
@@ -985,7 +995,9 @@ export default function App() {
       backendId: 101,
       name: "Main Portfolio",
       startingBalance: 100000,
+      starting_balance: 100000, // ✅ Required for backend mapper
       defaultRiskPct: 1,
+      default_risk_pct: 1,      // ✅ Required for backend mapper
       currency: "USD",
       trades: []
     }
