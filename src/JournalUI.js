@@ -98,52 +98,62 @@ export default function JournalUI({ trades: propTrades }) {
     {
       id: 1, date: "2026-02-01", rating: "happy",
       content: JSON.stringify({ outcome: "Strong start to the month. Followed the plan perfectly.", takeaway: "Keep waiting for A+ setups." }),
-      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true, waitedForSetups: true, avoidedOvertrading: true }
+      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true, waitedForSetups: true, avoidedOvertrading: true },
+      photos: ["/demo-chart.png"]
     },
     {
       id: 2, date: "2026-02-03", rating: "confident",
       content: JSON.stringify({ outcome: "Gold moved exactly as analyzed. Partial took at 1:2R.", takeaway: "Trust the analysis." }),
-      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true }
+      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true },
+      photos: ["/demo-chart.png"]
     },
     {
       id: 3, date: "2026-02-05", rating: "excited",
       content: JSON.stringify({ outcome: "Crypto pump was insane. Caught the bottom wick.", takeaway: "Don't fade momentum." }),
-      process_checks: { followedPlan: true, respectedRisk: true, waitedForSetups: false }
+      process_checks: { followedPlan: true, respectedRisk: true, waitedForSetups: false },
+      photos: ["/demo-chart.png"]
     },
     {
       id: 4, date: "2026-02-07", rating: "annoyed",
       content: JSON.stringify({ outcome: "Choppy weekend price action. Shouldn't have traded.", takeaway: "No trading on weekends unless volatility is high." }),
-      process_checks: { followedPlan: false, avoidedOvertrading: false }
+      process_checks: { followedPlan: false, avoidedOvertrading: false },
+      photos: ["/demo-chart.png"]
     },
     {
       id: 5, date: "2026-02-10", rating: "frustrated",
       content: JSON.stringify({ outcome: "Got stopped out by news wick. Position sizing was too big.", takeaway: "Reduce risk during red folder news." }),
-      process_checks: { followedPlan: true, respectedRisk: false }
+      process_checks: { followedPlan: true, respectedRisk: false },
+      photos: ["/demo-chart.png"]
     },
     {
       id: 6, date: "2026-02-12", rating: "excited",
       content: JSON.stringify({ outcome: "Tesla swing trade paid off. Held through the pullback.", takeaway: "Patience pays." }),
-      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true }
+      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true },
+      photos: ["/demo-chart.png"]
     },
     {
       id: 7, date: "2026-02-14", rating: "relaxed",
       content: JSON.stringify({ outcome: "Small scalp on SOL. Quick in and out.", takeaway: "Don't overstay welcome on scalps." }),
-      process_checks: { followedPlan: true, respectedRisk: true }
+      process_checks: { followedPlan: true, respectedRisk: true },
+      photos: ["/demo-chart.png"]
     },
     {
       id: 8, date: "2026-02-16", rating: "frustrated",
       content: JSON.stringify({ outcome: "Fakeout on NAS100. Entered too early.", takeaway: "Wait for candle close." }),
-      process_checks: { waitedForSetups: false }
+      process_checks: { waitedForSetups: false },
+      photos: ["/demo-chart.png"]
     },
     {
       id: 9, date: "2026-02-20", rating: "excited",
       content: JSON.stringify({ outcome: "SPX rally at open. Classic gap fill setup.", takeaway: "Gap fills are reliable." }),
-      process_checks: { followedPlan: true, respectedRisk: true, avoidedOvertrading: true }
+      process_checks: { followedPlan: true, respectedRisk: true, avoidedOvertrading: true },
+      photos: ["/demo-chart.png"]
     },
     {
       id: 10, date: "2026-02-23", rating: "happy",
       content: JSON.stringify({ outcome: "Best trade of the month. NAS100 runner.", takeaway: "Let winners run." }),
-      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true, waitedForSetups: true, avoidedOvertrading: true }
+      process_checks: { followedPlan: true, respectedRisk: true, noRevengeTrades: true, waitedForSetups: true, avoidedOvertrading: true },
+      photos: ["/demo-chart.png"]
     }
   ], []);
 
