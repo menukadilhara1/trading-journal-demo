@@ -1021,6 +1021,11 @@ export default function App() {
     }
   ];
 
+  // Fetch the logged-in user (Step 1: /me user context)
+  async function apiMe() {
+    return MOCK_USER;
+  }
+
   // Also update apiLoadTrades to return this list
   async function apiLoadTrades() {
     return MOCK_ACCOUNTS[0].trades;
