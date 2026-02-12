@@ -1434,7 +1434,7 @@ export default function App() {
                   notes: bt.notes ?? "",
                   dollarAmount: Number(bt.pnl) || 0,
                   feeling: bt.emotion || "😑",
-                  tags: bt.tags ? JSON.parse(bt.tags) : [],
+                  tags: Array.isArray(bt.tags) ? bt.tags : (bt.tags ? JSON.parse(bt.tags) : []),
                   screenshots: bt.screenshots || [],
                   session: bt.session || "",
                   date: bt.trade_date || (bt.created_at || "").slice(0, 10),
