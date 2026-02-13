@@ -106,7 +106,10 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, trades, stats, on
                         </button>
                         <button
                             type="button"
-                            onClick={() => { onNavigate("setting"); if (window.innerWidth < 768) setSidebarOpen(false); }}
+                            onClick={() => {
+                                // DEMO RESTRICTION
+                                showToast("This feature is disabled in the demo version.");
+                            }}
                             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors
             ${sidebarOpen ? 'justify-start px-4' : 'justify-center px-0'}
             ${activePage === 'setting'
