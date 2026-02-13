@@ -14,10 +14,10 @@ export default function PnLByTradeDurationScatter({ points = [] }) {
 
   // points: [{ durationMin: 12.5, pnl: -34 }, ...]
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 transition-colors">
-      <div className="text-sm text-slate-600 dark:text-slate-400 mb-4">PnL by Trade Duration</div>
+    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 transition-colors h-[250px] flex flex-col">
+      <div className="text-sm text-slate-600 dark:text-slate-400 mb-4 flex-none">PnL by Trade Duration</div>
 
-      <div className="h-72">
+      <div className="flex-1 min-h-0">
         <ResponsiveContainer width="100%" height="100%">
           <ScatterChart margin={{ top: 10, right: 20, bottom: 10, left: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" className="dark:opacity-10" />
