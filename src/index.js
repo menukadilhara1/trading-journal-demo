@@ -8,8 +8,8 @@ import ErrorBoundary from './components/ErrorBoundary';
 
 // Theme Bootstrap
 const savedTheme = localStorage.getItem("theme");
-const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-const shouldDark = savedTheme ? savedTheme === "dark" : prefersDark;
+// Default to light (false) if no saved preference, ignoring system preference
+const shouldDark = savedTheme === "dark";
 document.documentElement.classList.toggle("dark", shouldDark);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
