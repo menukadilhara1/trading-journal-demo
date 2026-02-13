@@ -44,17 +44,7 @@ const MoodCorrelation = ({ moodData = [] }) => {
         ))}
       </div>
 
-      <p className="text-sm text-slate-600 dark:text-slate-400 pt-2">
-        {" "}
-        <span className="text-slate-900 dark:text-slate-100 font-medium">
-          {bestMood ? bestMood.label.replace(/\p{Extended_Pictographic}/gu, "").trim().toLowerCase() : "-"}
-        </span>
-        , {" "}
-        <span className="text-emerald-600 dark:text-emerald-400 font-medium">
-          {bestMood ? bestMood.winRate : 0}%
-        </span>{" "}
 
-      </p>
     </div>
   );
 };

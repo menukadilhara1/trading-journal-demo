@@ -149,23 +149,19 @@ const STORAGE_KEY = 'lazy_trades_v1';
 // BACKUP / RESTORE (localStorage)
 // Works from ANY component in this file (no hooks needed)
 // ============================
+// ============================
+// BACKUP / RESTORE (localStorage)
+// Works from ANY component in this file (no hooks needed)
+// ============================
 function exportBackup(storageKey) {
-  const raw = localStorage.getItem(storageKey);
-
-  if (!raw) {
-    alert("No data found to export.");
-    return;
-  }
-
-  const blob = new Blob([raw], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `lazy-trades-backup-${new Date().toISOString().slice(0, 10)}.json`;
-  a.click();
-
-  URL.revokeObjectURL(url);
+  // Demo Mode override
+  // In a real app, this would export.
+  // We'll rely on the UI calling this to show a toast, but since this is a standalone
+  // function without access to `addToast`, we'll return false or handle it in the component.
+  // HOWEVER, Sidebar calls this directly.
+  // The Sidebar prop `showToast` is available THERE.
+  // But `exportBackup` and `restoreBackup` are passed as functions.
+  // Let's modify where they are PASSED to Sidebar to wrap them in a toast.
 }
 
 
@@ -987,52 +983,59 @@ export default function App() {
           feeling: "relaxed", session: "Asian", screenshots: ["/demo-chart.png"], tags: ["weekend", "slow"]
         },
         {
-          id: 1021, backendId: 1021, account_id: 101, instrument: "US30", direction: "short", side: "short",
+          id: 1021, backendId: 1021, account_id: 101, instrument: "US30", ticker: "US30", direction: "short", side: "short",
           pnl: -350.00, dollarAmount: -350.00, result: "loss",
           trade_date: "2026-02-22", date: "2026-02-22",
           startDateTime: "2026-02-22T21:00", endDateTime: "2026-02-22T22:30",
+          quantity: 1, entryPrice: 38500, exitPrice: 38535,
           feeling: "neutral", session: "Asian", screenshots: ["/demo-chart.png"], tags: ["open", "reversal"]
         },
         {
-          id: 1022, backendId: 1022, account_id: 101, instrument: "NAS100", direction: "long", side: "long",
+          id: 1022, backendId: 1022, account_id: 101, instrument: "NAS100", ticker: "NAS100", direction: "long", side: "long",
           pnl: 5000.00, dollarAmount: 5000.00, result: "win", // Huge win
           trade_date: "2026-02-23", date: "2026-02-23",
           startDateTime: "2026-02-23T09:30", endDateTime: "2026-02-23T11:45",
+          quantity: 5, entryPrice: 17800, exitPrice: 17900,
           feeling: "happy", session: "New York", screenshots: ["/demo-chart.png"], tags: ["runner", "A+"]
         },
         {
-          id: 1023, backendId: 1023, account_id: 101, instrument: "XAUUSD", direction: "short", side: "short",
+          id: 1023, backendId: 1023, account_id: 101, instrument: "XAUUSD", ticker: "XAUUSD", direction: "short", side: "short",
           pnl: 1100.00, dollarAmount: 1100.00, result: "win",
           trade_date: "2026-02-24", date: "2026-02-24",
           startDateTime: "2026-02-24T08:00", endDateTime: "2026-02-24T09:30",
+          quantity: 10, entryPrice: 2035.50, exitPrice: 2034.40,
           feeling: "focused", session: "London", screenshots: ["/demo-chart.png"], tags: ["breakout"]
         },
         {
-          id: 1024, backendId: 1024, account_id: 101, instrument: "EURUSD", direction: "long", side: "long",
+          id: 1024, backendId: 1024, account_id: 101, instrument: "EURUSD", ticker: "EURUSD", direction: "long", side: "long",
           pnl: -650.00, dollarAmount: -650.00, result: "loss",
           trade_date: "2026-02-25", date: "2026-02-25",
           startDateTime: "2026-02-25T07:45", endDateTime: "2026-02-25T08:30",
+          quantity: 2, entryPrice: 1.0850, exitPrice: 1.0820,
           feeling: "frustrated", session: "London", screenshots: ["/demo-chart.png"], tags: ["trap"]
         },
         {
-          id: 1025, backendId: 1025, account_id: 101, instrument: "GBPUSD", direction: "short", side: "short",
+          id: 1025, backendId: 1025, account_id: 101, instrument: "GBPUSD", ticker: "GBPUSD", direction: "short", side: "short",
           pnl: 850.00, dollarAmount: 850.00, result: "win",
           trade_date: "2026-02-26", date: "2026-02-26",
           startDateTime: "2026-02-26T08:15", endDateTime: "2026-02-26T10:00",
+          quantity: 3, entryPrice: 1.2650, exitPrice: 1.2620,
           feeling: "confident", session: "London", screenshots: ["/demo-chart.png"], tags: ["continuation"]
         },
         {
-          id: 1026, backendId: 1026, account_id: 101, instrument: "US30", direction: "long", side: "long",
-          pnl: 0, dollarAmount: 0, result: "breakeven",
+          id: 1026, backendId: 1026, account_id: 101, instrument: "US30", ticker: "US30", direction: "long", side: "long",
+          pnl: 0, dollarAmount: 0, result: "breakeven", isBreakeven: true,
           trade_date: "2026-02-27", date: "2026-02-27",
           startDateTime: "2026-02-27T09:30", endDateTime: "2026-02-27T10:00",
+          quantity: 1, entryPrice: 38600, exitPrice: 38600,
           feeling: "neutral", session: "New York", screenshots: ["/demo-chart.png"], tags: ["managed", "nfp"]
         },
         {
-          id: 1027, backendId: 1027, account_id: 101, instrument: "NAS100", direction: "short", side: "short",
+          id: 1027, backendId: 1027, account_id: 101, instrument: "NAS100", ticker: "NAS100", direction: "short", side: "short",
           pnl: -2000.00, dollarAmount: -2000.00, result: "loss",
           trade_date: "2026-02-27", date: "2026-02-27",
           startDateTime: "2026-02-27T14:00", endDateTime: "2026-02-27T15:00",
+          quantity: 4, entryPrice: 17950, exitPrice: 18000,
           feeling: "annoyed", session: "New York", screenshots: ["/demo-chart.png"], tags: ["eod", "flush"]
         }
       ]
@@ -1903,7 +1906,7 @@ export default function App() {
                 Yearly
               </button>
               <span className="ml-1 px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold">
-                Save 20%
+                Save 25%
               </span>
             </div>
           </div>
@@ -1968,8 +1971,17 @@ export default function App() {
               <h3 className="text-xl font-bold text-slate-900">Pro</h3>
 
               <div className="mt-2 flex items-end gap-2">
-                <div className="text-3xl font-extrabold text-slate-900">$7.90</div>
-                <div className="text-slate-500 pb-1 text-sm">/month</div>
+                {billingCycle === 'monthly' ? (
+                  <>
+                    <div className="text-3xl font-extrabold text-slate-900">$7.90</div>
+                    <div className="text-slate-500 pb-1 text-sm">/month</div>
+                  </>
+                ) : (
+                  <>
+                    <div className="text-3xl font-extrabold text-slate-900">$71.10</div>
+                    <div className="text-slate-500 pb-1 text-sm">/year</div>
+                  </>
+                )}
               </div>
 
               <p className="mt-2 text-slate-600 text-sm">Everything you need to improve</p>
@@ -2063,11 +2075,12 @@ export default function App() {
             isLoggingOut={loggingOut}
             username={state.username}
             displayName={state.displayName}
-            exportBackup={exportBackup}
-            restoreBackup={state.isSubscribed ? restoreBackup : () => showToast("Restore is a Pro feature. Upgrade to enable.", "warning")}
+            // ✅ Demo Mode: Override these actions to show a toast
+            exportBackup={() => showToast("This feature is disabled in the demo version.")}
+            restoreBackup={() => showToast("This feature is disabled in the demo version.")}
             STORAGE_KEY={STORAGE_KEY}
             isPro={state.isSubscribed}
-            onOpenSupport={() => setIsSupportModalOpen(true)}
+            onOpenSupport={() => showToast("This feature is disabled in the demo version.")}
           />
 
           {/* Main Content Area */}
@@ -3738,18 +3751,26 @@ function TradeFormModal({ onClose, onSubmit, mood, trade, displayMode, activeAcc
             </div>
           </div>
 
-          {/* FIXME: Breakeven toggle needs refactoring 
-          <div className="bg-[#FAFAFA] border border-[#E2E8F0] rounded-2xl p-4 flex items-center justify-between">
+
+          <div className="bg-[#FAFAFA] dark:bg-slate-800 border border-[#E2E8F0] dark:border-slate-700 rounded-2xl p-4 flex items-center justify-between">
             <div>
-              <p className="text-sm font-semibold text-[#171717]">Breakeven</p>
-              <p className="text-xs text-[#64748B]">Mark this trade as BE</p>
+              <p className="text-sm font-semibold text-[#171717] dark:text-slate-100">Breakeven</p>
+              <p className="text-xs text-[#64748B] dark:text-slate-400">Mark this trade as BE</p>
             </div>
-            
-            <button type="button" className="w-14 h-8 rounded-full transition flex items-center px-1 bg-gray-300">
-               <div className="w-6 h-6 bg-white rounded-full transition translate-x-0" />
+
+            <button
+              type="button"
+              onClick={() => setIsBreakeven(!isBreakeven)}
+              className={`w-14 h-8 rounded-full transition-colors flex items-center px-1 ${isBreakeven ? 'bg-[#10B981]' : 'bg-gray-300 dark:bg-slate-600'
+                }`}
+            >
+              <div
+                className={`w-6 h-6 bg-white rounded-full shadow-sm transition-transform duration-200 ${isBreakeven ? 'translate-x-6' : 'translate-x-0'
+                  }`}
+              />
             </button>
           </div>
-          */}
+
 
 
           <div>
@@ -4333,7 +4354,7 @@ const TradeCard = React.memo(function TradeCard({ trade, onClick, displayMode, a
         <div className="text-center relative z-10">
           {/* ✅ less “aggressive” ticker */}
           <h3 className="text-2xl font-bold text-[#171717] dark:text-slate-100 mb-4 tracking-tight">
-            {trade.ticker}
+            {trade.ticker || trade.instrument || trade.symbol}
           </h3>
 
           {/* pill under symbol */}
@@ -4455,11 +4476,11 @@ function TradeLogTable({ trades, onSelectTrade, displayMode, activeAccount, bala
                   className="border-b border-[#E2E8F0] dark:border-slate-800 hover:bg-[#FAFAFA] dark:hover:bg-slate-800/50 cursor-pointer transition-colors"
                 >
                   <td className="px-4 py-3 text-sm text-[#64748B] dark:text-slate-400">
-                    {formatDateDisplay(trade.date || trade.dateTime ? (trade.date || trade.dateTime).split('T')[0] : null)}
+                    {formatDateDisplay(trade.date || (trade.dateTime || trade.startDateTime || '').split('T')[0] || null)}
                   </td>
 
                   <td className="px-4 py-3 text-sm text-[#64748B] dark:text-slate-400">
-                    {trade.time || (trade.dateTime ? trade.dateTime.split('T')[1]?.substring(0, 5) : '-')}
+                    {trade.time || ((trade.dateTime || trade.startDateTime || '').split('T')[1]?.substring(0, 5)) || '-'}
                   </td>
 
                   <td className="px-4 py-3 text-sm font-semibold text-[#171717] dark:text-slate-100">

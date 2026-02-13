@@ -357,7 +357,7 @@ export default function JournalUI({ trades: propTrades }) {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
         <div>
-          <h1 className="text-3xl font-black text-[#0F172A] dark:text-white tracking-tight">Journal</h1>
+          <h1 className="text-2xl font-bold text-[#0F172A] dark:text-white tracking-tight">Journal</h1>
           <p className="text-[#64748B] dark:text-slate-400 font-medium mt-1">
             Reflect on your performance and stay disciplined.
           </p>
@@ -383,7 +383,7 @@ export default function JournalUI({ trades: propTrades }) {
       {/* Main Content */}
       <div className="space-y-6">
         {/* Date selector card - Horizontal Bar Style */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 px-6 py-4 transition-colors">
+        <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 px-5 py-3 transition-colors">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             {/* Left: Navigation & Date */}
             <div className="flex items-center gap-6">
@@ -447,11 +447,11 @@ export default function JournalUI({ trades: propTrades }) {
 
 
         {/* Two Column Grid for Form */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Left Column */}
           <div className="space-y-6">
             {/* Mood selector */}
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-[#E2E8F0] dark:border-slate-800 p-6 transition-colors">
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-[#E2E8F0] dark:border-slate-800 p-4 transition-colors">
               <div className="mb-4">
                 <div className="text-sm font-bold text-[#171717] dark:text-slate-100">How did you feel?</div>
                 <div className="text-xs text-[#64748B] dark:text-slate-500">Select your mood for this day</div>
@@ -475,7 +475,7 @@ export default function JournalUI({ trades: propTrades }) {
             </div>
 
             {/* Process checks */}
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-[#E2E8F0] dark:border-slate-800 p-6 space-y-4 transition-colors">
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-[#E2E8F0] dark:border-slate-800 p-4 space-y-3 transition-colors">
               <div>
                 <div className="text-lg font-bold text-[#171717] dark:text-slate-100">✅ Process checks</div>
                 <div className="text-sm text-[#64748B] dark:text-slate-400">
@@ -500,7 +500,7 @@ export default function JournalUI({ trades: propTrades }) {
           {/* Right Column */}
           <div className="space-y-6">
             {/* One takeaway */}
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-[#E2E8F0] dark:border-slate-800 p-6 space-y-3 transition-colors">
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-[#E2E8F0] dark:border-slate-800 p-4 space-y-3 transition-colors">
               <div>
                 <div className="text-lg font-bold text-[#171717] dark:text-slate-100">💡 One takeaway</div>
                 <div className="text-sm text-[#64748B] dark:text-slate-400">
@@ -512,12 +512,12 @@ export default function JournalUI({ trades: propTrades }) {
                 value={takeaway}
                 onChange={(e) => setTakeaway(e.target.value)}
                 placeholder="Trust the setup earlier. If conditions are clear, execute without hesitation."
-                className="w-full rounded-2xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-slate-800 p-4 text-sm text-[#171717] dark:text-slate-200 placeholder:text-[#94A3B8] dark:placeholder:text-slate-600 focus:border-[#2563EB] dark:focus:border-blue-500 focus:outline-none min-h-[100px] resize-y transition-colors"
+                className="w-full rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-slate-800 p-3 text-sm text-[#171717] dark:text-slate-200 placeholder:text-[#94A3B8] dark:placeholder:text-slate-600 focus:border-[#2563EB] dark:focus:border-blue-500 focus:outline-none min-h-[80px] resize-y transition-colors"
               />
             </div>
 
             {/* Today's Outcome & Photos Combined */}
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-[#E2E8F0] dark:border-slate-800 p-6 space-y-4 transition-colors">
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-[#E2E8F0] dark:border-slate-800 p-4 space-y-3 transition-colors">
               <div>
                 <div className="text-lg font-bold text-[#171717] dark:text-slate-100">📝 Today's outcome</div>
                 <div className="text-sm text-[#64748B] dark:text-slate-400">
@@ -529,7 +529,7 @@ export default function JournalUI({ trades: propTrades }) {
                 value={outcome}
                 onChange={(e) => setOutcome(e.target.value)}
                 placeholder="Stayed disciplined overall. Followed the plan and respected risk. Execution was clean, but I hesitated on one A+ setup."
-                className="w-full rounded-2xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-slate-800 p-4 text-sm text-[#171717] dark:text-slate-200 placeholder:text-[#94A3B8] dark:placeholder:text-slate-600 focus:border-[#2563EB] dark:focus:border-blue-500 focus:outline-none min-h-[100px] resize-y transition-colors"
+                className="w-full rounded-xl border border-[#E2E8F0] dark:border-slate-800 bg-white dark:bg-slate-800 p-3 text-sm text-[#171717] dark:text-slate-200 placeholder:text-[#94A3B8] dark:placeholder:text-slate-600 focus:border-[#2563EB] dark:focus:border-blue-500 focus:outline-none min-h-[80px] resize-y transition-colors"
               />
 
               {/* Photos Section */}
@@ -600,7 +600,7 @@ export default function JournalUI({ trades: propTrades }) {
         {/* Trades summary (if any) - Full Width */}
         {
           todaysTrades.length > 0 && (
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-[#E2E8F0] dark:border-slate-800 p-6 transition-colors">
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-[#E2E8F0] dark:border-slate-800 p-4 transition-colors">
               <div className="text-sm font-bold text-[#171717] dark:text-slate-100 mb-4">
                 📊 Trades on this day ({todaysTrades.length})
               </div>
@@ -617,7 +617,7 @@ export default function JournalUI({ trades: propTrades }) {
         {/* Saved Entries - Horizontal Grid at Bottom */}
         {
           loadingJournals ? (
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-[#E2E8F0] dark:border-slate-800 p-6 transition-colors">
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-[#E2E8F0] dark:border-slate-800 p-4 transition-colors">
               <div className="text-lg font-bold text-[#171717] dark:text-slate-100 mb-4">
                 📚 Saved Entries
               </div>
@@ -632,7 +632,7 @@ export default function JournalUI({ trades: propTrades }) {
               </div>
             </div>
           ) : allJournals.length > 0 ? (
-            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-[#E2E8F0] dark:border-slate-800 p-6 transition-colors">
+            <div className="bg-white dark:bg-slate-900 rounded-xl border border-[#E2E8F0] dark:border-slate-800 p-4 transition-colors">
               <div className="text-lg font-bold text-[#171717] dark:text-slate-100 mb-4">
                 📚 Saved Entries ({allJournals.length})
               </div>
@@ -734,7 +734,7 @@ function CheckRow({ emoji, text, checked, onToggle }) {
       type="button"
       onClick={onToggle}
       className={`
-        w-full flex items-center gap-3 rounded-2xl border px-4 py-3 transition-all text-left
+        w-full flex items-center gap-3 rounded-xl border px-3 py-2 transition-all text-left
         ${checked
           ? 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800'
           : 'bg-[#FAFAFA] dark:bg-slate-800 border-[#E2E8F0] dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 hover:border-[#2563EB] dark:hover:border-blue-500'
@@ -744,7 +744,7 @@ function CheckRow({ emoji, text, checked, onToggle }) {
       <div className="text-lg">{emoji}</div>
       <div className="flex-1 text-sm text-[#171717] dark:text-slate-200 font-medium">{text}</div>
       <div className={`
-        w-6 h-6 rounded-full flex items-center justify-center transition-all
+        w-5 h-5 rounded-full flex items-center justify-center transition-all
         ${checked
           ? 'bg-[#10B981] dark:bg-emerald-500 text-white'
           : 'bg-white dark:bg-slate-900 border-2 border-[#E2E8F0] dark:border-slate-700'
@@ -821,7 +821,7 @@ function JournalHistoryCard({ entry, onClick, isActive }) {
       type="button"
       onClick={onClick}
       className={`
-        w-full flex flex-col gap-2 rounded-2xl border p-4 transition-all text-left
+        w-full flex flex-col gap-2 rounded-xl border p-3 transition-all text-left
         ${isActive
           ? 'bg-blue-50 dark:bg-blue-900/30 border-[#2563EB] dark:border-blue-500 shadow-sm'
           : 'bg-[#FAFAFA] dark:bg-slate-800 border-[#E2E8F0] dark:border-slate-700 hover:bg-white dark:hover:bg-slate-700 hover:border-[#2563EB] dark:hover:border-blue-500 hover:shadow-md'
@@ -830,7 +830,7 @@ function JournalHistoryCard({ entry, onClick, isActive }) {
     >
       <div className="flex items-center justify-between">
         <div className="w-8 flex justify-center">
-          <Twemoji hex={moodHex} size={32} />
+          <Twemoji hex={moodHex} size={24} />
         </div>
         <Maximize2 className="w-4 h-4 text-[#64748B] dark:text-slate-400" />
       </div>

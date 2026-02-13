@@ -159,7 +159,11 @@ export default function AnalyticsUI({ isActive, startingBalance = 0, trades: pro
     const durationMin = Number(t.durationMin ?? t.duration_min ?? t.duration ?? 0);
 
     // emotion label (string)
-    const emotion = (t.emotion ?? t.mood ?? t.feeling ?? "").toString();
+    const emotionRaw = (t.emotion ?? t.mood ?? t.feeling ?? "").toString();
+    // ✅ Normalize emotion: lowercase, trim, remove emojis if needed (or keep them but normalize)
+    // We'll keep emojis but trimming is key.
+    const emotion = emotionRaw.trim().toLowerCase();
+
     // date
     // ✅ Heatmap must use the REAL trade date only.
     // Do NOT fallback to created_at, otherwise old trades "leak" into this week.
@@ -178,6 +182,17 @@ export default function AnalyticsUI({ isActive, startingBalance = 0, trades: pro
       }
     }
 
+    // ✅ Duration calc: if durationMin is missing, try to calc from start/end times
+    let calculatedDuration = Number(t.durationMin ?? t.duration_min ?? t.duration ?? 0);
+    if (!calculatedDuration && t.startDateTime && t.endDateTime) {
+      const start = new Date(t.startDateTime);
+      const end = new Date(t.endDateTime);
+      if (!isNaN(start) && !isNaN(end)) {
+        const diffMs = end - start;
+        calculatedDuration = Math.round(diffMs / 60000); // ms to minutes
+      }
+    }
+
     return {
       instrument,
       session,
@@ -185,7 +200,7 @@ export default function AnalyticsUI({ isActive, startingBalance = 0, trades: pro
       pnl: pnlNum,       // null means "unknown"
       outcome,           // win/loss/be or ""
       lots: Number.isFinite(lotsNum) ? lotsNum : 0,
-      durationMin: Number.isFinite(durationMin) ? durationMin : 0,
+      durationMin: Number.isFinite(calculatedDuration) ? calculatedDuration : 0,
       emotion,
       date: dateObj,
     };
