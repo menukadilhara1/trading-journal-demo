@@ -173,7 +173,7 @@ export default function AuthPage({ initialMode = 'signin' }) {
                     <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] rounded-2xl mb-4 shadow-lg">
                         <TrendingUp className="w-8 h-8 text-white" />
                     </div>
-                    <h1 className="text-3xl font-bold text-[#0F172A] mb-2">Easy Trade Log</h1>
+                    <h1 className="text-3xl font-bold text-[#0F172A] mb-2">Easy LogTrade</h1>
                     <p className="text-[#64748B]">Track, analyze, and improve your trading</p>
                 </div>
 
