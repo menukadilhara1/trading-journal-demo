@@ -119,7 +119,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, trades, stats, on
                             <Settings className="w-5 h-5 opacity-80 shrink-0" />
                             {sidebarOpen && <span className="font-medium tracking-tight whitespace-nowrap">Settings</span>}
                         </button>
-                        <button
+                        {/* <button
                             type="button"
                             onClick={() => { onNavigate("billing"); window.history.pushState({}, '', '/billing'); if (window.innerWidth < 768) setSidebarOpen(false); }}
                             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-colors
@@ -131,7 +131,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, trades, stats, on
                         >
                             <CreditCard className="w-5 h-5 opacity-80 shrink-0" />
                             {sidebarOpen && <span className="font-medium tracking-tight whitespace-nowrap">Billing</span>}
-                        </button>
+                        </button> */}
 
                         <a
                             href="https://easytradelog.app/join"
