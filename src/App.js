@@ -4771,7 +4771,22 @@ function ExpandedTradeModal({ trade, onClose, onEdit, onDeleteClick, onToggleBre
 
             return (
               <div className="bg-white rounded-xl p-6 border border-[#E2E8F0]">
-                <div className="text-sm font-semibold text-[#171717] mb-4">Performance</div>
+                {/* Header + Toggle */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="text-sm font-semibold text-[#171717]">Performance</div>
+                  <button
+                    type="button"
+                    onClick={() => onToggleBreakeven(trade)}
+                    className={`h-6 rounded-full transition-colors flex items-center px-0.5 gap-2 border ${isBE ? 'bg-[#10B981] border-[#10B981] pl-8 pr-1' : 'bg-slate-100 border-slate-200 pl-1 pr-8'
+                      } relative w-14 transition-all duration-200`}
+                    title="Toggle Breakeven"
+                  >
+                    <div
+                      className={`absolute top-0.5 w-4.5 h-4.5 bg-white rounded-full shadow-sm transition-all duration-200 ${isBE ? 'left-[calc(100%-1.25rem)]' : 'left-0.5'
+                        }`}
+                    />
+                  </button>
+                </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
                   <div className="min-w-0">
                     <p className="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-2">P&L</p>

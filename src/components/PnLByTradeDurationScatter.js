@@ -14,7 +14,7 @@ export default function PnLByTradeDurationScatter({ points = [] }) {
 
   // points: [{ durationMin: 12.5, pnl: -34 }, ...]
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 transition-colors h-[250px] flex flex-col">
+    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 transition-colors h-[400px] flex flex-col">
       <div className="text-sm text-slate-600 dark:text-slate-400 mb-4 flex-none">PnL by Trade Duration</div>
 
       <div className="flex-1 min-h-0">

@@ -12,21 +12,14 @@ import {
 
 export default function InstrumentVolumeAnalysis({ data }) {
   // Check if we have real data
-  if (!data || data.length === 0) {
-    return (
-      <div className="bg-white rounded-xl border border-slate-200 p-6">
-        <div className="text-sm text-slate-600 mb-4">
-          Instrument Volume Analysis
-        </div>
-        <div className="flex items-center justify-center h-[220px]">
-          <div className="text-center text-slate-400">
-            <p className="text-sm">No trading data available</p>
-            <p className="text-xs mt-1">Start adding trades to see volume analysis</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // Fallback mock data if empty
+  const chartData = (data && data.length > 0) ? data : [
+    { instrument: "EURUSD", volume: 15 },
+    { instrument: "GBPUSD", volume: 12 },
+    { instrument: "NAS100", volume: 25 },
+    { instrument: "US30", volume: 18 },
+    { instrument: "XAUUSD", volume: 8 },
+  ];
 
   return (
     <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 transition-colors h-[350px] flex flex-col">
@@ -37,7 +30,7 @@ export default function InstrumentVolumeAnalysis({ data }) {
       <div className="flex-1 min-h-0">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
-            data={data}
+            data={chartData}
             barSize={18}
             barCategoryGap={20} // space between bars
             margin={{ top: 10, right: 20, bottom: 10, left: 0 }}
