@@ -31,6 +31,7 @@ import CreateAccountModal from './components/modals/CreateAccountModal';
 import EditAccountModal from './components/modals/EditAccountModal';
 import SupportModal from './components/modals/SupportModal';
 import WaitingListModal from './components/WaitingListModal';
+import FundedStatsCards from './components/FundedStatsCards';
 import { useToast } from './contexts/ToastContext';
 import EmptyState from './components/ui/EmptyState';
 import PageLoader from './components/ui/PageLoader';
@@ -1269,6 +1270,7 @@ export default function App() {
 
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [hideBalance, setHideBalance] = useState(() => localStorage.getItem('hideBalance') === 'true');
+  const [isFundedMode, setIsFundedMode] = useState(false); // ✅ Toggle for Funded Dashboard
 
   useEffect(() => {
     localStorage.setItem('hideBalance', hideBalance);
@@ -2110,22 +2112,47 @@ export default function App() {
                 {/* TRADES ONLY */}
                 {activePage === "trades" && (
                   <>
-                    <div className="pb-6">
-                      <BalanceSummary
-                        stats={{
-                          ...stats,
-                          onEditAccount: hasAccountSettings ? () => setEditAccountOpen(true) : null,
-                        }}
-                        displayMode={state.displayMode}
-                        trades={filteredTrades}
-                        currentBalance={currentBalance}
-                        defaultRiskPct={activeAccount?.defaultRiskPct ?? null}
-                        currentOneR={currentOneR}
-                        hideBalance={hideBalance}
-                        setHideBalance={setHideBalance}
-                      />
+                    {/* FUNDED ACCOUNT TOGGLE */}
+                    <div className="flex items-center justify-end px-6 pt-2 mb-[-10px] relative z-10">
+                      <label className="inline-flex items-center cursor-pointer bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-full px-3 py-1.5 shadow-sm hover:shadow-md transition-shadow">
+                        <span className={`mr-2 text-[10px] font-bold uppercase tracking-wider transition-colors ${!isFundedMode ? 'text-slate-800 dark:text-slate-200' : 'text-slate-400'}`}>Standard</span>
+
+                        <div className="relative inline-flex items-center">
+                          <input
+                            type="checkbox"
+                            className="sr-only peer"
+                            checked={isFundedMode}
+                            onChange={() => setIsFundedMode(!isFundedMode)}
+                          />
+                          <div className="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                        </div>
+
+                        <span className={`ml-2 text-[10px] font-bold uppercase tracking-wider transition-colors ${isFundedMode ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400'}`}>Funded Sim</span>
+                      </label>
                     </div>
 
+                    <div className="pb-6">
+                      {isFundedMode ? (
+                        <FundedStatsCards
+                          currentBalance={currentBalance}
+                          startingBalance={Number(activeAccount?.startingBalance) || 100000}
+                        />
+                      ) : (
+                        <BalanceSummary
+                          stats={{
+                            ...stats,
+                            onEditAccount: hasAccountSettings ? () => setEditAccountOpen(true) : null,
+                          }}
+                          displayMode={state.displayMode}
+                          trades={filteredTrades}
+                          currentBalance={currentBalance}
+                          defaultRiskPct={activeAccount?.defaultRiskPct ?? null}
+                          currentOneR={currentOneR}
+                          hideBalance={hideBalance}
+                          setHideBalance={setHideBalance}
+                        />
+                      )}
+                    </div>
                     <div className="flex-1 overflow-y-auto">
                       <div className="p-6">
                         <div className="pt-4 bg-[white] dark:bg-slate-900/90 opacity-90 rounded-xl p-6 border border-black/5 dark:border-slate-800">
