@@ -12,7 +12,7 @@ import PnLByTradeDurationScatter from "./components/PnLByTradeDurationScatter";
 import InstrumentProfitAnalysis from "./components/InstrumentProfitAnalysis";
 import InstrumentVolumeAnalysis from "./components/InstrumentVolumeAnalysis";
 import ChartSkeleton from './components/ui/ChartSkeleton';
-import { getMoodHex } from './constants/moods';
+import { getMoodHex, resolveMood } from './constants/moods';
 
 
 
@@ -507,11 +507,13 @@ export default function AnalyticsUI({ isActive, startingBalance = 0, trades: pro
       const startLabel = t.emotion?.trim() ? t.emotion.trim() : "";
       if (!startLabel) continue;
 
-      const label = startLabel.toLowerCase();
+      // ✅ Use canonical label to merge aliases (e.g. "Money" -> "Confident")
+      const resolved = resolveMood(startLabel);
+      const label = resolved ? resolved.label : startLabel; // fallback to as-is if unknown
 
-      // Store original label if new, otherwise reuse existing
+      // Store using canonical label
       if (!map.has(label)) {
-        map.set(label, { label: startLabel, trades: 0, wins: 0, pnlSum: 0, pnlCount: 0 });
+        map.set(label, { label, trades: 0, wins: 0, pnlSum: 0, pnlCount: 0 });
       }
 
       const row = map.get(label);
@@ -571,7 +573,8 @@ export default function AnalyticsUI({ isActive, startingBalance = 0, trades: pro
       if (!map.has(key)) map.set(key, { instrument: key, volume: 0 });
 
       const row = map.get(key);
-      row.volume += Number(t.lots) || 0;
+      // ✅ Fallback to quantity if lots is missing (for mock data)
+      row.volume += Number(t.lots || t.quantity) || 0;
     }
 
     return Array.from(map.values()).sort((a, b) => b.volume - a.volume);
@@ -1113,7 +1116,7 @@ export default function AnalyticsUI({ isActive, startingBalance = 0, trades: pro
             <SessionWinRates sessions={sessionWinRates} />
 
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
             <PnLByTradeDurationScatter points={durationScatterData} />
 
 
