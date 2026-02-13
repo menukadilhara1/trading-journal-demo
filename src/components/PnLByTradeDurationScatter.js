@@ -29,6 +29,7 @@ export default function PnLByTradeDurationScatter({ points = [] }) {
               tick={{ fontSize: 11, fill: "#64748B" }}
               axisLine={{ stroke: '#E2E8F0', strokeOpacity: 0.5 }}
               name="Duration (min)"
+              domain={['dataMin', 'dataMax']}
             />
             <YAxis
               dataKey="pnl"

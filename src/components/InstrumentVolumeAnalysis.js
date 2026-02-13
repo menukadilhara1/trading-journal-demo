@@ -28,21 +28,13 @@ export default function InstrumentVolumeAnalysis({ data }) {
     );
   }
 
-  // ✅ Dynamic height: space per bar
-  const rowHeight = 52; // spacing per value
-  const minHeight = 220;
-  const chartHeight = Math.max(
-    minHeight,
-    data.length * rowHeight
-  );
-
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 transition-colors">
-      <div className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+    <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 transition-colors h-[350px] flex flex-col">
+      <div className="text-sm text-slate-600 dark:text-slate-400 mb-4 flex-none">
         Instrument Volume Analysis
       </div>
 
-      <div style={{ height: chartHeight }}>
+      <div className="flex-1 min-h-0">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={data}

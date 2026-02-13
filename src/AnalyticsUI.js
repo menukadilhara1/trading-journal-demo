@@ -449,12 +449,18 @@ export default function AnalyticsUI({ isActive, startingBalance = 0, trades: pro
 
     const map = new Map();
     for (const t of filteredTrades) {
-      const key = t.emotion?.trim() ? t.emotion.trim() : "Unspecified";
-      map.set(key, (map.get(key) || 0) + 1);
+      const startKey = t.emotion?.trim() ? t.emotion.trim() : "Unspecified";
+      // Normalize key to lowercase for aggregation
+      const key = startKey.toLowerCase();
+      // Store original casing for display if first time seeing it, or just use capitalized version
+      if (!map.has(key)) map.set(key, { count: 0, original: startKey });
+
+      const entry = map.get(key);
+      entry.count += 1;
     }
 
-    const rows = Array.from(map.entries())
-      .map(([name, value]) => ({ name, value, color: colorFor(name) }))
+    const rows = Array.from(map.values())
+      .map(({ original, count }) => ({ name: original, value: count, color: colorFor(original) }))
       .sort((a, b) => b.value - a.value)
       .slice(0, 8);
 
