@@ -43,7 +43,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, trades, stats, on
                         </div>
                         {sidebarOpen && (
                             <div className="flex items-center justify-between flex-1">
-                                <h1 className="text-lg font-bold text-[#171717] dark:text-slate-100 tracking-tight whitespace-nowrap">EasyTrade Log</h1>
+                                <h1 className="text-lg font-bold text-[#171717] dark:text-slate-100 tracking-tight whitespace-nowrap">Easy Trade Log</h1>
                             </div>
                         )}
                     </div>
