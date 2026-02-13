@@ -419,13 +419,13 @@ export default function JournalUI({ trades: propTrades }) {
             <div className="flex items-center gap-6 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-slate-800 pt-3 lg:pt-0 lg:pl-6">
               <div className="flex flex-col">
                 <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Trades</span>
-                <span className="text-lg font-black text-slate-900 dark:text-white leading-none mt-1">
+                <span className="text-base font-black text-slate-900 dark:text-white leading-none mt-1">
                   {todaysStats.total}
                 </span>
               </div>
               <div className="flex flex-col">
                 <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">P&L</span>
-                <span className={`text-lg font-black leading-none mt-1 ${todaysStats.totalPnl > 0 ? 'text-emerald-500 dark:text-emerald-400' :
+                <span className={`text-base font-black leading-none mt-1 ${todaysStats.totalPnl > 0 ? 'text-emerald-500 dark:text-emerald-400' :
                   todaysStats.totalPnl < 0 ? 'text-rose-500 dark:text-rose-400' : 'text-slate-400'
                   }`}>
                   {todaysStats.totalPnl > 0 ? '+' : ''}{todaysStats.totalPnl.toFixed(2)}
@@ -434,10 +434,10 @@ export default function JournalUI({ trades: propTrades }) {
               <div className="flex flex-col">
                 <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Win / Loss</span>
                 <div className="flex items-baseline gap-1 mt-1">
-                  <span className="text-lg font-black text-slate-900 dark:text-white leading-none">{todaysStats.wins}</span>
+                  <span className="text-base font-black text-slate-900 dark:text-white leading-none">{todaysStats.wins}</span>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">W</span>
                   <span className="mx-0.5 text-slate-200 dark:text-slate-800">/</span>
-                  <span className="text-lg font-black text-slate-900 dark:text-white leading-none">{todaysStats.losses}</span>
+                  <span className="text-base font-black text-slate-900 dark:text-white leading-none">{todaysStats.losses}</span>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tight">L</span>
                 </div>
               </div>

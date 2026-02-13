@@ -504,11 +504,14 @@ export default function AnalyticsUI({ isActive, startingBalance = 0, trades: pro
     const map = new Map();
 
     for (const t of filteredTrades) {
-      const label = (t.emotion || "").trim();
-      if (!label) continue;
+      const startLabel = t.emotion?.trim() ? t.emotion.trim() : "";
+      if (!startLabel) continue;
 
+      const label = startLabel.toLowerCase();
+
+      // Store original label if new, otherwise reuse existing
       if (!map.has(label)) {
-        map.set(label, { label, trades: 0, wins: 0, pnlSum: 0, pnlCount: 0 });
+        map.set(label, { label: startLabel, trades: 0, wins: 0, pnlSum: 0, pnlCount: 0 });
       }
 
       const row = map.get(label);
