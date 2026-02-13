@@ -129,6 +129,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, trades, stats, on
                                     : 'text-[#64748B] dark:text-slate-400 font-medium hover:bg-gray-50 dark:hover:bg-slate-800'
                                 }`}
                         >
+                            <CreditCard className="w-5 h-5 opacity-80 shrink-0" />
                             {sidebarOpen && <span className="font-medium tracking-tight whitespace-nowrap">Billing</span>}
                         </button>
 
