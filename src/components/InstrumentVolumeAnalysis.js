@@ -10,10 +10,12 @@ import {
   ReferenceLine,
 } from "recharts";
 
+
 export default function InstrumentVolumeAnalysis({ data }) {
-  // Check if we have real data
-  // Fallback mock data if empty
-  const chartData = (data && data.length > 0) ? data : [
+  // Fallback mock data if empty OR if the incoming data looks empty (e.g. only 0 volumes)
+  const hasValidData = data && data.length > 0 && data.some(d => (d.volume || 0) > 0);
+
+  const chartData = hasValidData ? data : [
     { instrument: "EURUSD", volume: 15 },
     { instrument: "GBPUSD", volume: 12 },
     { instrument: "NAS100", volume: 25 },

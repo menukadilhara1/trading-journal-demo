@@ -4771,33 +4771,22 @@ function ExpandedTradeModal({ trade, onClose, onEdit, onDeleteClick, onToggleBre
 
             return (
               <div className="bg-white rounded-xl p-6 border border-[#E2E8F0]">
-                {/* Header + Toggle */}
+                {/* Header */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="text-sm font-semibold text-[#171717]">Performance</div>
-                  <button
-                    type="button"
-                    onClick={() => onToggleBreakeven(trade)}
-                    className={`h-6 rounded-full transition-colors flex items-center px-0.5 gap-2 border ${isBE ? 'bg-[#10B981] border-[#10B981] pl-8 pr-1' : 'bg-slate-100 border-slate-200 pl-1 pr-8'
-                      } relative w-14 transition-all duration-200`}
-                    title="Toggle Breakeven"
-                  >
-                    <div
-                      className={`absolute top-0.5 w-4.5 h-4.5 bg-white rounded-full shadow-sm transition-all duration-200 ${isBE ? 'left-[calc(100%-1.25rem)]' : 'left-0.5'
-                        }`}
-                    />
-                  </button>
                 </div>
+
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
                   <div className="min-w-0">
                     <p className="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-2">P&L</p>
-                    <p className={`text - 2xl font - bold tracking - tight ${pnlDisplay >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'} `}>
+                    <p className={`text-2xl font-bold tracking-tight ${pnlDisplay >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
                       {pnlDisplay > 0 ? '+' : ''}${pnlDisplay}
                     </p>
                   </div>
 
                   <div className="min-w-0">
                     <p className="text-xs font-semibold text-[#64748B] uppercase tracking-wider mb-2">R</p>
-                    <p className={`text - 2xl font - bold tracking - tight ${rDisplay >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'} `}>
+                    <p className={`text-2xl font-bold tracking-tight ${rDisplay >= 0 ? 'text-[#10B981]' : 'text-[#EF4444]'}`}>
                       {formatRText(rDisplay)}
                     </p>
                   </div>
@@ -4816,7 +4805,7 @@ function ExpandedTradeModal({ trade, onClose, onEdit, onDeleteClick, onToggleBre
                     </p>
                   </div>
 
-                  {/* Breakeven toggle - IMPROVED */}
+                  {/* Breakeven toggle */}
                   <div className="col-span-2 sm:col-span-4">
                     <div className="bg-[#FAFAFA] border border-[#E2E8F0] rounded-xl px-4 py-3 flex items-center justify-between">
                       <div>
@@ -4826,12 +4815,12 @@ function ExpandedTradeModal({ trade, onClose, onEdit, onDeleteClick, onToggleBre
 
                       <button
                         type="button"
-                        onClick={onToggleBreakeven}
-                        className={`relative inline - flex h - 6 w - 11 items - center rounded - full transition - colors ${isBE ? 'bg-[#2563EB]' : 'bg-[#E2E8F0]'
+                        onClick={() => onToggleBreakeven(trade)}
+                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isBE ? 'bg-[#2563EB]' : 'bg-[#E2E8F0]'
                           } `}
                       >
                         <span
-                          className={`inline - block h - 4 w - 4 transform rounded - full bg - white transition - transform ${isBE ? 'translate-x-6' : 'translate-x-1'
+                          className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isBE ? 'translate-x-6' : 'translate-x-1'
                             } `}
                         />
                       </button>
@@ -4862,12 +4851,14 @@ function ExpandedTradeModal({ trade, onClose, onEdit, onDeleteClick, onToggleBre
           </div>
 
           {/* Notes - IMPROVED */}
-          {trade.notes && (
-            <div className="bg-[#FAFAFA] rounded-xl p-4 border border-[#E2E8F0]">
-              <p className="text-sm font-semibold text-[#171717] mb-2">Notes</p>
-              <p className="text-[#171717] leading-relaxed text-sm">{trade.notes}</p>
-            </div>
-          )}
+          {
+            trade.notes && (
+              <div className="bg-[#FAFAFA] rounded-xl p-4 border border-[#E2E8F0]">
+                <p className="text-sm font-semibold text-[#171717] mb-2">Notes</p>
+                <p className="text-[#171717] leading-relaxed text-sm">{trade.notes}</p>
+              </div>
+            )
+          }
 
           {/* Actions - IMPROVED */}
           <div className="flex gap-3 pt-4 border-t border-[#E2E8F0]">
