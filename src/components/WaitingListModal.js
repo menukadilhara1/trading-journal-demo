@@ -40,11 +40,11 @@ export default function WaitingListModal() {
                     </div>
 
                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
-                        Join the Revolution
+                        Be the first to know when we launch
                     </h2>
 
                     <p className="text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
-                        Get early access to advanced AI analytics, automated journaling, and pro features. Join our exclusive waiting list today.
+                        Get early access and exclusive updates.
                     </p>
 
                     <a
