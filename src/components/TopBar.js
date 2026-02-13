@@ -7,6 +7,7 @@ import {
     Filter,
 } from 'lucide-react';
 import CalendarPopover from './CalendarPopover';
+import ThemeToggle from './ui/ThemeToggle';
 
 export default function TopBar({
     sidebarOpen,
@@ -147,6 +148,9 @@ export default function TopBar({
                 >
                     {displayMode === 'pnl' ? '💵 P&L' : '📊 R'}
                 </button>
+
+                {/* Theme Toggle */}
+                <ThemeToggle />
             </div>
         </div>
     );

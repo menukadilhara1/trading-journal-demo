@@ -11,7 +11,7 @@ import {
     Mail,
     User,
 } from 'lucide-react';
-import ThemeToggle from './ui/ThemeToggle';
+
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen, trades, stats, onLogout, isLoggingOut, username, displayName, showToast, openConfirm, activePage, onNavigate, exportBackup, restoreBackup, STORAGE_KEY, isPro, onOpenSupport }) {
     const [backupExpanded, setBackupExpanded] = useState(false);
@@ -44,7 +44,6 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, trades, stats, on
                         {sidebarOpen && (
                             <div className="flex items-center justify-between flex-1">
                                 <h1 className="text-lg font-bold text-[#171717] dark:text-slate-100 tracking-tight whitespace-nowrap">Easy Log Trade</h1>
-                                <ThemeToggle />
                             </div>
                         )}
                     </div>
