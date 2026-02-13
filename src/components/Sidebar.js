@@ -38,12 +38,12 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, trades, stats, on
             `}>
                 <div className="">
                     <div className={`p-6 border-b border-[#E2E8F0] dark:border-slate-800 flex items-center gap-3 ${sidebarOpen ? '' : 'justify-center'}`}>
-                        <div className="w-10 h-10 bg-[#2563EB] rounded-xl flex items-center justify-center shrink-0">
-                            <BookOpen className="w-5 h-5 text-white" strokeWidth={2.5} />
+                        <div className="w-10 h-10 bg-transparent rounded-xl flex items-center justify-center shrink-0 overflow-hidden">
+                            <img src="/logo.png" alt="Logo" className="w-full h-full object-contain" />
                         </div>
                         {sidebarOpen && (
                             <div className="flex items-center justify-between flex-1">
-                                <h1 className="text-lg font-bold text-[#171717] dark:text-slate-100 tracking-tight whitespace-nowrap">Eazy Trades</h1>
+                                <h1 className="text-lg font-bold text-[#171717] dark:text-slate-100 tracking-tight whitespace-nowrap">Easy Log Trade</h1>
                                 <ThemeToggle />
                             </div>
                         )}
