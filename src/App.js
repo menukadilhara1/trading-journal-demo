@@ -30,6 +30,7 @@ import TopBar from './components/TopBar';
 import CreateAccountModal from './components/modals/CreateAccountModal';
 import EditAccountModal from './components/modals/EditAccountModal';
 import SupportModal from './components/modals/SupportModal';
+import WaitingListModal from './components/WaitingListModal';
 import { useToast } from './contexts/ToastContext';
 import EmptyState from './components/ui/EmptyState';
 import PageLoader from './components/ui/PageLoader';
@@ -2265,6 +2266,9 @@ export default function App() {
       )}
 
 
+
+      {/* WAITING LIST MODAL */}
+      <WaitingListModal />
 
       {/* MODALS OUTSIDE MAIN WRAPPER (cleaner, avoids layout clipping) */}
       <CreateAccountModal

@@ -127,9 +127,23 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen, trades, stats, on
                                     : 'text-[#64748B] dark:text-slate-400 font-medium hover:bg-gray-50 dark:hover:bg-slate-800'
                                 }`}
                         >
-                            <CreditCard className="w-5 h-5 opacity-80 shrink-0" />
                             {sidebarOpen && <span className="font-medium tracking-tight whitespace-nowrap">Billing</span>}
                         </button>
+
+                        <a
+                            href="https://easytradelog.app/join"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm transition-all group
+            ${sidebarOpen ? 'justify-start px-4' : 'justify-center px-0'}
+            bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-md hover:shadow-blue-500/20`}
+                        >
+                            <div className="relative">
+                                <TrendingUp className="w-5 h-5 shrink-0" />
+                                <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full animate-pulse" />
+                            </div>
+                            {sidebarOpen && <span className="font-bold tracking-tight whitespace-nowrap">Join Waiting List</span>}
+                        </a>
 
                         {/* Backup (expand down) */}
                         <div className="w-full">
