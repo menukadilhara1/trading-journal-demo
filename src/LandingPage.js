@@ -305,7 +305,7 @@ export default function LandingPage() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="flex items-center gap-2">
                         <div className="w-6 h-6 bg-indigo-600 rounded flex items-center justify-center text-white font-bold text-xs">E</div>
-                        <span className="text-white font-bold text-lg">Easy LogTrade</span>
+                        <span className="text-white font-bold text-lg">EasyTrade Log</span>
                     </div>
 
                     <div className="flex gap-6 text-sm">
