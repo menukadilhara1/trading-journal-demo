@@ -1952,7 +1952,7 @@ export default function App() {
 
               <button
                 type="button"
-                onClick={handleLogout}
+                onClick={() => showToast("This feature is disabled in the demo version.")}
                 className="mt-10 w-full rounded-full border border-black/10 bg-white px-6 py-3 font-semibold text-slate-900 hover:bg-slate-50 transition"
               >
                 Logout
@@ -2019,7 +2019,7 @@ export default function App() {
                   </div>
                   <button
                     type="button"
-                    onClick={() => { window.open(`${API_BASE}/api/billing/portal`, '_blank'); }}
+                    onClick={() => showToast("This feature is disabled in the demo version.")}
                     className="block w-full rounded-full bg-white border border-slate-200 px-6 py-3 font-semibold text-slate-700 text-center hover:bg-slate-50 transition"
                   >
                     Manage Subscription

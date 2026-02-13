@@ -769,8 +769,8 @@ function TradeCard({ trade }) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className={`px-2 py-1 rounded-lg text-xs font-semibold ${direction === 'long'
-            ? 'bg-blue-50 dark:bg-blue-900/30 text-[#2563EB] dark:text-blue-400'
-            : 'bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400'
+            ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400'
+            : 'bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400'
             }`}>
             {direction === 'long' ? '↑' : '↓'} {direction || 'Long'}
           </div>
