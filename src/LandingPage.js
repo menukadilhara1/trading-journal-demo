@@ -32,22 +32,10 @@ export default function LandingPage() {
     };
 
     const handleLogin = () => {
-        if (typeof window.gtag === 'function') {
-            window.gtag('event', 'click_login', {
-                'transport': 'beacon'
-            });
-        }
         window.location.href = '/login';
     };
 
     const handleSignup = () => {
-        if (typeof window.gtag === 'function') {
-            window.gtag('event', 'click_start_free', {
-                'event_category': 'engagement',
-                'event_label': 'landing_page_cta',
-                'transport': 'beacon'
-            });
-        }
         window.location.href = '/signup'; // App.js will need to handle this
     };
 
